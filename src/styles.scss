@@ -3135,6 +3135,24 @@ p.copyright-text {
 }
 /* =====  Category style end ===== */
 
+/* =====  Why choose style start ===== */
+
+.choose-content-wrapper {
+    text-align: left;
+    padding: 3rem 3rem;
+    height: 315px;
+}
+.choose-content-wrapper h4 {
+    color: #8dd445;
+    padding-top: 1rem;
+    margin-bottom: 0;
+}
+.choose-content-wrapper p {
+    color: #7e7e7e;
+}
+/* =====  Why choose style end ===== */
+
+
 /* =====  Responsive media style start ===== */
 
 @media (min-width: 992px) {
