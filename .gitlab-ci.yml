@@ -1,0 +1,62 @@
+stages:
+    - buildprod
+    - builddev
+    - production
+    - development
+
+variables:
+  AWS_DEFAULT_REGION: us-east-1
+  PROD_BUCKET_NAME: mp.production
+  DEV_BUCKET_NAME: mp.dev
+
+buildprod:
+    stage: buildprod
+    image: node:14
+    script:
+      - npm install
+      - npm install -g @angular/cli@13.3.2
+      - ng build --prod
+    artifacts:
+        paths:
+            - dist/
+    only:
+      - master
+
+builddev:
+    stage: builddev
+    image: node:14
+    script:
+      - npm install
+      - npm install -g @angular/cli@13.3.2
+      - ng build --configuration development
+    artifacts:
+        paths:
+            - dist/
+    only:
+      - develop
+
+production:
+  image: "python:latest"
+  stage: production
+  before_script:
+    - pip install awscli
+  script:
+    - aws s3 ls
+    - aws s3 rm s3://${PROD_BUCKET_NAME} --recursive
+    - aws s3 cp dist/* s3://${PROD_BUCKET_NAME} --acl public-read --recursive
+  when: manual
+  only:
+      - master
+
+development:
+  image: "python:latest"
+  stage: development
+  before_script:
+    - pip install awscli
+  script:
+    - aws s3 ls
+    - aws s3 rm s3://${DEV_BUCKET_NAME} --recursive
+    - aws s3 cp dist/* s3://${DEV_BUCKET_NAME} --acl public-read --recursive
+  when: manual
+  only:
+      - develop

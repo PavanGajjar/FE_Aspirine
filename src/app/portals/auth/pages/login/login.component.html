@@ -1,0 +1,76 @@
+<div class="login-section-wrapper">
+    <div class="brand-wrapper">
+        <img src="../../../../../assets/images/mp_logo.svg" alt="logo" style='width: 80px;' class="logo">
+    </div>
+    <div class="login-text-wrapper">
+        <h2 class='fw-400'>Sign-In</h2>
+        <p class='fw-400' style='margin-bottom: 10px;'>Enter Email and Password </p>
+    </div>
+    <div class="login-form">
+        <form [formGroup]="loginForm">
+            <div class="form-group form-group-row">
+                <div class="form-group" [ngClass]="isFieldInvalid('login_id') ? 'custom-error' : ''">
+                    <div class="custom-label fw-400">Email</div>
+                    <input autocomplete="off" type="email" class="form-control custom-input-error" id="email"
+                        formControlName="login_id" placeholder="Enter Your Email" aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
+                    <ng-container *ngIf="isVisibleErrorText('login_id')">
+                        <span class="custom-error-text" *ngIf="loginFormControls['login_id']?.errors?.['required']">
+                            Email is required
+                        </span>
+                        <span class="custom-error-text" *ngIf="loginFormControls['login_id']?.errors?.['email']">
+                            Email ID is Invalid
+                        </span>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="form-group form-group-row input-psw-group">
+                <div class="form-group" [ngClass]="isFieldInvalid('password') ? 'custom-error' : ''">
+                    <div class="custom-label fw-400">Password</div>
+                    <input autocomplete="off" #pw type="password" class="form-control custom-input-error" id="password"
+                        formControlName="password" placeholder="Enter Your Password" aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
+                    <i [ngClass]="pw.type == 'text' ? 'pi pi-eye' : 'pi pi-eye-slash'"
+                        (click)="pw.type = (pw.type == 'password' ? 'text' : 'password')"></i>
+                    <ng-container *ngIf="isVisibleErrorText('password')">
+                        <span class="custom-error-text" *ngIf="loginFormControls['password']?.errors?.['required']">
+                            Password is required
+                        </span>
+                    </ng-container>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class='custom-error' *ngIf='loginError'>
+        <span class="custom-error-text signInError">
+            Incorrect Email / Password. Please try again.
+        </span>
+    </div>
+    <div class="remember-wrapper">
+        <div class="remember-check">
+            <div class="form-check  p-0">
+                <p-checkbox class="me-2" name="groupname" [value]="true" [binary]="true">
+                </p-checkbox>
+                <label class="form-check-label fw-400" for="flexCheckDefault">
+                    Remember me
+                </label>
+            </div>
+        </div>
+        <div class="forgot-psw">
+            <a class='fw-400' [routerLink]="['/auth/mobile-login']">Forgot Password ?</a>
+        </div>
+    </div>
+    <div class="text-center login-btn">
+        <button type="button" class="animate-btn w-auto" (click)="onFormSubmit()" style='margin: 0;'>
+            <p class='fw-400'>Sign In</p>
+        </button>
+    </div>
+    <div class="account-wrapper">
+        <div class="account-text">
+            <p class='fw-400 fs-12'>Dont have an account?</p>
+        </div>
+        <div class="register-wrapper">
+            <a class='fw-400 fs-12' style='margin-left: 5px;' [routerLink]="['/register']">Register with dFarm</a>
+        </div>
+    </div>
+
+</div>
+<!------ Login page end ------>

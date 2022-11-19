@@ -1,0 +1,174 @@
+<!------ Banner section start ------>
+<div class="baner-section">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 col-xs-12">
+                <div class="banner-text">
+                    <h1>A Food System Powered by Hyperdata</h1>
+                    <h1 style="font-size: 30px;">Food Safety – Intelligence – Dynamic Markets</h1>
+                    <p>Our Hyperdata web uses blockchain technology to digitally link the entire agriculture supply
+                        chain from farm to retail and increase transparency and efficiency</p>
+                    <p>Realize improved freshness and quality, reduced wastage and spoilage, and power precision
+                        tracing, dynamic access to global markets, and decision support</p>
+                </div>
+                <button (click)='openWatchProductTour()' class="animate-btn watchProductTour" style='width:200px;'
+                    type="submit">
+                    <p>Watch Product Tour </p>
+                </button>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-xs-12">
+                <div class="banner-vector">
+                    <img src="assets/images/matrix-animation.gif" alt="banner-1">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!------ Banner section end ------>
+
+<!------Agriculture start ------>
+<div class="trading-section" *ngIf='vw<=990'>
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-xs-12">
+                <div class="trading-content-wrapper" style='border:none;'>
+                    <h3>REAL-TIME WHOLE CHAIN DISTRIBUTED ERP</h3>
+                    <p>A new food system paradigm in which richer data enables advanced supply chain management capabilities.</p>
+                    <p>dFarm focuses on vital aspects of the agricultural supply chain to create value for all stakeholders.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="Agriculture-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="trading-content-wrapper new-food-system" *ngIf='vw>990'>
+                <h3 style='white-space: nowrap;'>REAL-TIME WHOLE CHAIN DISTRIBUTED ERP</h3>
+                <p>A new food system paradigm in which richer data enables advanced supply chain management capabilities.</p>
+                <p>dFarm focuses on vital aspects of the agricultural supply chain to create value for all stakeholders.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!------ Agriculture section end ------>
+
+<!------ Trading scrollable section start ------>
+<div class="trading-section">
+    <div class="container-fluid">
+        <!-- <div class="row align-items-center">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="tranding-title">
+                    <h3>dFarm focuses on vital aspects of the agricultural supply chain to create value for all
+                        stakeholders. </h3>
+                </div>
+            </div>
+        </div> -->
+        <div class="row align-items-center">
+            <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-xs-12">
+                <div class="trading-content-wrapper">
+                    <h3 style='white-space: nowrap;'>Whole Chain Visualization</h3>
+                    <p>A better way of managing your supply chain. Out with information silos.
+                        In with data-driven predictive analysis.</p>
+                    <p>Introducing truly integrated, connected, visual supply chain management.</p>
+                </div>
+                <div class="link-btn" [routerLink]="['/supply-chain-management']">
+                    <a>Learn More</a>
+                    <img src="../../../../../assets/images/arrow.png" alt="arrow">
+                </div>
+            </div>
+            <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12 col-xs-12">
+                <div class="trading-img-wrapper">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="trading-section trading-section-dark">
+    <div class="container-fluid">
+        <!-- <div class="row align-items-center">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="tranding-title">
+                    <h3>dFarm focuses on vital aspects of the agricultural supply chain to create value for all
+                        stakeholders. </h3>
+                </div>
+            </div>
+        </div> -->
+        <div class="row align-items-center">
+            <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-xs-12">
+                <div class="trading-content-wrapper">
+                    <h3 style='white-space: nowrap;'>Global Digital Marketplace</h3>
+                    <p>Why settle for a chat-based trading community that’s slow and inefficient when you can have a
+                        fully digital interactive marketplace with real-time quotes.
+                    </p>
+                    <p>Introducing the first AI-powered digital interactive
+                        marketplace that instantly connects buyers and sellers to new domestic and global markets.</p>
+                </div>
+                <div class="link-btn" (click)='navigateToMarketPlace()'>
+                    <a>Learn More</a>
+                    <img src="../../../../../assets/images/arrow.png" alt="arrow">
+                </div>
+            </div>
+            <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12 col-xs-12">
+                <div class="trading-img-wrapper">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="trading-section">
+    <div class="container-fluid">
+        <!-- <div class="row align-items-center">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="tranding-title">
+                    <h3>dFarm focuses on vital aspects of the agricultural supply chain to create value for all
+                        stakeholders. </h3>
+                </div>
+            </div>
+        </div> -->
+        <div class="row align-items-center">
+            <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-xs-12">
+                <div class="trading-content-wrapper">
+                    <h3 style='width: 100%;'>Precision Tracing</h3>
+                    <p>All recalls are bad, but what’s unacceptable are time-consuming recalls that require you discard
+                        perfectly
+                        good food just because you can’t quickly isolate just the offending source.
+                    </p>
+                    <p>Introducing a new whole supply
+                        chain trace capability that’s dynamic, precise, visual, interactive – and enables tracing back
+                        and forward.</p>
+                </div>
+                <div class="link-btn" [routerLink]="['/precision-tracing']">
+                    <a>Learn More</a>
+                    <img src="../../../../../assets/images/arrow.png" alt="arrow">
+                </div>
+            </div>
+            <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12 col-xs-12">
+                <div class="trading-img-wrapper">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------ Trading scrollable section end ------>
+
+<!-- <div class="Agriculture-section tranding-section-bg">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="agriculture-text">
+                    <p><b>dFarm</b> focuses on vital aspects of the
+                        agricultural supply chain to create value for all stakeholders.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="header-progress">
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+</div>

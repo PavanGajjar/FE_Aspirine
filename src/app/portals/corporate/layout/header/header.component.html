@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid home-container">
+        <a class="navbar-brand" [routerLink]="['/home']"><img src="../../../../../assets/images/dFarm-Logo.png"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <div (click)="openCloseNavbar()" id="nav-icon1">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav custom-navbar">
+              <li class="nav-item">
+                <a id="supplyChainManagement" class="nav-link" [routerLink]="['/supply-chain-management']"
+                    [ngClass]="isActiveRoute('supply-chain-management') ? 'active' : ''"
+                data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Supply Chain Optimization</a>
+            </li>
+                <li class="nav-item">
+                    <a id="wholesaleTrading"
+                    class="nav-link" (click)="navigateToMarketPlace()"
+                        [ngClass]="isActiveRoute('dynamic-marketplace') ? 'active' : ''"
+                    data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Dynamic Marketplace</a>
+                </li>
+
+                <li class="nav-item">
+                    <a id="precisionTracing" class="nav-link" [routerLink]="['/precision-tracing']"
+                        [ngClass]="isActiveRoute('precision-tracing') ? 'active' : ''"
+                    data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Precision Tracing</a>
+                </li>
+                <li class="nav-item">
+                    <a id="technologies" class="nav-link" [routerLink]="['/technologies']"
+                        [ngClass]="isActiveRoute('technologies') ? 'active' : ''"
+                    data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Technologies</a>
+                </li>
+            </ul>
+
+        </div>
+        <ul class="navbar-nav hidden-md">
+            <button (click)='navigateToPage("supplyChainManagement")'  [routerLink]="['supply-chain-management']" class="animate-btn getaDemo" style='width:200px;' type="submit">
+                <p class='getdemo_label'>Get a demo </p>
+            </button>
+            <!-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    EN
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark slideIn animate"
+                    aria-labelledby="navbarDarkDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">English</a></li>
+                     <li><a class="dropdown-item" href="#">Español</a></li>
+                    <li><a class="dropdown-item" href="#">Français</a></li>
+                </ul>
+            </li> -->
+        </ul>
+    </div>
+</nav>

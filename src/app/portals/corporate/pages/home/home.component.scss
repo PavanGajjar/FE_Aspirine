@@ -1,0 +1,89 @@
+.p-0 {
+  padding: 0px;
+}
+
+.link-btn a {
+  color: #f4b119;
+}
+
+.link-btn{
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 897px) {
+  .real-time {
+    position: relative;
+    top: 20px;
+  }
+}
+
+@media only screen and (max-width: 766px) {
+  .watchProductTour {
+    position: relative;
+    bottom: 20px;
+  }
+
+  .order-2-sm {
+   margin-top: 17px;
+  }
+
+  .trading-content-wrapper {
+    padding:2rem 0 !important;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .trading-content-wrapper h3 {
+    font-size: 28px !important;
+    line-height: 40px !important;
+  }
+
+  .trading-content-wrapper {
+    padding:1rem 0 !important;
+  }
+}
+
+.img-fluid {
+  width: -webkit-fill-available;
+  max-height: 494px;
+}
+
+.Agriculture-section {
+  height: 100px !important;
+  display: flex;
+  place-items: center;
+}
+
+.agriculture-text p {
+  line-height: 23px;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.new-food-system {
+  width: 47%;
+  border: none;
+}
+
+.agriculture-text p {
+  width: 100%;
+}
+
+.agriculture-innertxt {
+  color: #fff;
+  font-weight: 300;
+  margin-bottom: 16px;
+  font-size:24px;
+}
+
+
+.Agriculture-section {
+  background-image: url(./../../../../../assets/images/tranding.png);
+  background-attachment:initial;
+}
+
+.new-food-system h3, .new-food-system p {
+  color: #ffffff;
+}

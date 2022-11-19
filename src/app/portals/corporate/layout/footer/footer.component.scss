@@ -1,0 +1,52 @@
+.f-social {
+  margin-top: 0px !important;
+}
+
+.award {
+  position: absolute;
+    top: 36px;
+}
+
+.pos-rel {
+  position: relative;
+}
+
+.desktop-view {
+  display: block;
+}
+
+.mobile-view {
+  display: none;
+}
+
+@media (max-width: 990px) {
+  .award {
+      position: static;
+  }
+
+  .desktop-view {
+    display: none  !important;
+  }
+
+  .mobile-view {
+    display: block !important;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .hide-md {
+    visibility: hidden;
+  }
+}
+
+.f-link ul li a {
+  cursor: pointer;
+}
+
+.f-link ul li:hover {
+  color: #f4b119;
+}
+
+.copyright-text {
+  white-space: nowrap;
+}
