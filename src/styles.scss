@@ -6,7 +6,7 @@
 :root {
 
     --primary: #1C1B1F;
-    --secondary: #F4B119;
+    --secondary: #8dd445;
     --secondary-light: #ffbd29d1;
     --primary-border: rgba(28, 27, 31, 0.5);
     --white: #ffffff;
@@ -143,7 +143,7 @@ ol {
 /* =====  Local font style end ===== */
 /* =====  Main header style start ===== */
 .navbar-brand img {
-    width: 80px;
+    width: 190px;
 }
 
 .bg-light {
@@ -344,6 +344,10 @@ ol {
 }
 
 /* =====  Animate btn style end ===== */
+
+
+
+
 
 /* =====  Banner section style start ===== */
 .baner-section {
@@ -3099,6 +3103,38 @@ p.copyright-text {
         letter-spacing: 0.0125em;
         color: #197EF4;
 }
+
+/* =====  Category style start ===== */
+.section-title {
+    margin-bottom: 1.5rem;
+}
+.section-title h3 {
+    font-size: 34px;
+}
+.section-title h3 span {
+    color: #8dd445;
+}
+.category-content-wrapper {
+    padding: 2rem;
+    margin-right: 14px;
+    background-color: #fff;
+    box-shadow: 0 3px 10px #ebebeb;
+    border-radius: 5px;
+    flex-shrink: 0;
+    text-align: center;
+    transition: all .3s;
+    cursor: pointer;
+}
+.category-content-wrapper:hover {
+    box-shadow: 0 4px 15px #b6b6b6;
+}
+.category-content-wrapper p {
+    margin-bottom: 0;
+    margin-top: 10px;
+    color: #47800d;
+}
+/* =====  Category style end ===== */
+
 /* =====  Responsive media style start ===== */
 
 @media (min-width: 992px) {
