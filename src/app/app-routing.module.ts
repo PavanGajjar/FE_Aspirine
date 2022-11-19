@@ -10,10 +10,6 @@ const routes: Routes = [
     path: "auth",
     loadChildren: () => import('./portals/auth/auth.module').then(m => m.AuthModule)
   },
-  {
-    path: "register",
-    loadChildren: () => import('./portals/register/register.module').then(m => m.RegisterModule)
-  }
 ];
 
 @NgModule({
