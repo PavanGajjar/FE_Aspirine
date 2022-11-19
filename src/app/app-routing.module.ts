@@ -13,6 +13,14 @@ const routes: Routes = [
   {
     path: "register",
     loadChildren: () => import('./portals/register/register.module').then(m => m.RegisterModule)
+  },
+  {
+    path: "sample",
+    loadChildren: () => import('./sample/sample.module').then(m => m.SampleModule)
+  },
+  {
+    path: "sample2",
+    loadChildren: () => import('./sample2/sample2.module').then(m => m.Sample2Module)
   }
 ];
 
