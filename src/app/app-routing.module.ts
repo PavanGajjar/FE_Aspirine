@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: "register",
-    loadChildren: () => import('./portals/register/register.module').then(m => m.RegisterModule)
+    loadChildren: () => import('./portals/auth/pages/register/register.module').then(m => m.RegisterModule)
   },
   {
     path: "sample",
