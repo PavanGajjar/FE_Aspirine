@@ -7,7 +7,7 @@ import { FooterModule } from './layout/footer/footer.module';
 
 @NgModule({
   declarations: [
-    AuthComponent
+    AuthComponent,
   ],
   imports: [
     CommonModule,
