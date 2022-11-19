@@ -7,17 +7,21 @@
         <p class='fw-400' style='margin-bottom: 10px;'>Enter Email and Password </p>
     </div>
     <div class="login-form">
-        <form [formGroup]="loginForm">
+        <form [formGroup]="registerForm">
+            <div class=" form-group form-group-row">
+                <div class="custom-label fw-400">Name</div>
+                <input name="name" formControlName="name"  type="text" class="form-control" placeholder="Name" aria-label="Name">
+            </div>
             <div class="form-group form-group-row">
                 <div class="form-group" [ngClass]="isFieldInvalid('email') ? 'custom-error' : ''">
                     <div class="custom-label fw-400">Email</div>
                     <input autocomplete="off" type="email" class="form-control custom-input-error" id="email"
                         formControlName="email" placeholder="Enter Your Email" aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
                     <ng-container *ngIf="isVisibleErrorText('email')">
-                        <span class="custom-error-text" *ngIf="loginFormControls['email']?.errors?.['required']">
+                        <span class="custom-error-text" *ngIf="registerformControls['email']?.errors?.['required']">
                             Email is required
                         </span>
-                        <span class="custom-error-text" *ngIf="loginFormControls['email']?.errors?.['email']">
+                        <span class="custom-error-text" *ngIf="registerformControls['email']?.errors?.['email']">
                             Email ID is Invalid
                         </span>
                     </ng-container>
@@ -31,19 +35,31 @@
                     <i [ngClass]="pw.type == 'text' ? 'pi pi-eye' : 'pi pi-eye-slash'"
                         (click)="pw.type = (pw.type == 'password' ? 'text' : 'password')"></i>
                     <ng-container *ngIf="isVisibleErrorText('password')">
-                        <span class="custom-error-text" *ngIf="loginFormControls['password']?.errors?.['required']">
+                        <span class="custom-error-text" *ngIf="registerformControls['password']?.errors?.['required']">
                             Password is required
                         </span>
                     </ng-container>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group form-group-row">
+                <div class="custom-label fw-400">Mobile number</div>
+                <input name="mobile_number" formControlName="mobile"  type="text" class="form-control" placeholder="+918123456789" aria-label="Phone">
+            </div>
+            <div class="form-group form-group-row">
+                <div class="custom-label fw-400">ModelId</div>
+                <input name="modelId" formControlName="modelId" type="text" class="form-control" autocomplete="off" placeholder="modelId" aria-label="Password">
+            </div>
+            <div class="form-group form-group-row">
+                <div class="custom-label fw-400">CarId</div>
+                <input name="carId" formControlName="carId" type="text" class="form-control" autocomplete="off" placeholder="carId" aria-label="Password">
+            </div>
+            <div class="form-group form-group-row">
                 <p-radioButton  value="1" label="Admin"  formControlName="isAdmin"></p-radioButton>
                 <p-radioButton  value="0" label="Customer"  formControlName="isAdmin"></p-radioButton>
             </div>
         </form>
     </div>
-    <div class='custom-error' *ngIf='loginError'>
+    <div class='custom-error' *ngIf='registerError'>
         <span class="custom-error-text signInError">
             Incorrect Email / Password. Please try again.
         </span>
@@ -72,7 +88,7 @@
             <p class='fw-400 fs-12'>Dont have an account?</p>
         </div>
         <div class="register-wrapper">
-            <a class='fw-400 fs-12' style='margin-left: 5px;' [routerLink]="['/auth/register']">Create an Account</a>
+            <a class='fw-400 fs-12' style='margin-left: 5px;' [routerLink]="['/auth/login']">Already have an account</a>
         </div>
     </div>
 

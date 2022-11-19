@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from 'src/app/services/api/api.service';
+import { AuthenticationVM } from 'src/app/services/authentication/authenctication.model';
+import { LocalstorageService } from 'src/app/services/localstorage/localstorage.service';
+
 
 @Component({
   selector: 'app-login',
@@ -10,7 +14,10 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
   loginError: Boolean = false;
   get loginFormControls() { return this.loginForm?.controls };
-  constructor() { }
+  constructor(
+    private apiService: ApiService,
+    private localStorageService:LocalstorageService,
+  ) { }
 
   ngOnInit(): void {
     this.setupContactusForm();
@@ -18,8 +25,9 @@ export class LoginComponent implements OnInit {
   }
   setupContactusForm() {
     this.loginForm = new FormGroup({
-      login_id: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
+      isAdmin: new FormControl('', Validators.required),
     });
   }
 
@@ -46,6 +54,22 @@ export class LoginComponent implements OnInit {
   }
 
   onFormSubmit() {
-    
+    if (this.loginForm.invalid) {
+      return;
+    }
+    let userDetails: AuthenticationVM.authDetails = {
+      email: this.loginFormControls["email"].value,
+      password: this.loginFormControls["password"].value,
+      isAdmin: this.loginFormControls["isAdmin"].value
+    }
+    this.apiService.POSTAPICallAsync("http://52.66.113.164:3000/api/auth/login",userDetails).then((res:any) =>{
+      if (res){
+        this.localStorageService.setItem("token",res?.data.token)
+      }
+    },
+    error => {
+      console.log(error);
+    }
+    )
   }
-}
+  }
