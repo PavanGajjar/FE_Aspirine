@@ -9,15 +9,15 @@
     <div class="login-form">
         <form [formGroup]="loginForm">
             <div class="form-group form-group-row">
-                <div class="form-group" [ngClass]="isFieldInvalid('login_id') ? 'custom-error' : ''">
+                <div class="form-group" [ngClass]="isFieldInvalid('email') ? 'custom-error' : ''">
                     <div class="custom-label fw-400">Email</div>
                     <input autocomplete="off" type="email" class="form-control custom-input-error" id="email"
-                        formControlName="login_id" placeholder="Enter Your Email" aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
-                    <ng-container *ngIf="isVisibleErrorText('login_id')">
-                        <span class="custom-error-text" *ngIf="loginFormControls['login_id']?.errors?.['required']">
+                        formControlName="email" placeholder="Enter Your Email" aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
+                    <ng-container *ngIf="isVisibleErrorText('email')">
+                        <span class="custom-error-text" *ngIf="loginFormControls['email']?.errors?.['required']">
                             Email is required
                         </span>
-                        <span class="custom-error-text" *ngIf="loginFormControls['login_id']?.errors?.['email']">
+                        <span class="custom-error-text" *ngIf="loginFormControls['email']?.errors?.['email']">
                             Email ID is Invalid
                         </span>
                     </ng-container>
@@ -36,6 +36,10 @@
                         </span>
                     </ng-container>
                 </div>
+            </div>
+            <div class="form-group">
+                <p-radioButton  value="1" label="Admin"  formControlName="isAdmin"></p-radioButton>
+                <p-radioButton  value="0" label="Customer"  formControlName="isAdmin"></p-radioButton>
             </div>
         </form>
     </div>
@@ -68,7 +72,7 @@
             <p class='fw-400 fs-12'>Dont have an account?</p>
         </div>
         <div class="register-wrapper">
-            <a class='fw-400 fs-12' style='margin-left: 5px;' [routerLink]="['/register']">Register with dFarm</a>
+            <a class='fw-400 fs-12' style='margin-left: 5px;' [routerLink]="['/auth/register']">Create an Account</a>
         </div>
     </div>
 
