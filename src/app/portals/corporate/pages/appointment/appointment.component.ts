@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
+import { LocalstorageService } from 'src/app/services/localstorage/localstorage.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-appointment',
@@ -8,11 +11,11 @@ import { ApiService } from 'src/app/services/api/api.service';
   styleUrls: ['./appointment.component.scss']
 })
 export class AppointmentComponent implements OnInit {
-  carCompanies: Array<commonDropdownVM> = carCompanies;
+  carCompanies: Array<commonDropdownVM> = new Array<commonDropdownVM>();
   serviceType: Array<commonDropdownVM> = serviceType;
   selectedCarCompany: number;
   carModels: Array<commonDropdownWithParentIdVM> = carModels;
-  filteredCarModel: Array<commonDropdownWithParentIdVM> = [];
+  filteredCarModel: Array<commonDropdownWithParentIdVM> = new Array<commonDropdownWithParentIdVM>();;
   selectedCarModel: number;
   categories: Array<commonDropdownVM> = categories;
   selectedCategory: number;
@@ -21,12 +24,23 @@ export class AppointmentComponent implements OnInit {
   tabSetEnum = TabSetEnum;
   activeTab: tabSetVM = new tabSetVM();
 
-  appoinmentForm: FormGroup = new FormGroup({});
+  appoinmentForm: FormGroup = new FormGroup({	
+    firstName: new FormControl(null, [Validators.required]),	
+    lastName: new FormControl(null, Validators.required),	
+    email: new FormControl(null, Validators.required),	
+    contactNumber: new FormControl(null, Validators.required),	
+    carCompany: new FormControl(null, Validators.required),	
+    carModel: new FormControl(null, Validators.required),	
+    appoinmentDate: new FormControl(null, Validators.required),	
+    appoinmentTime: new FormControl(new Date, Validators.required),
+    serviceType:	new FormControl(null, Validators.required),	
+  });
+
   get appoinmentFormControls() { return this.appoinmentForm?.controls };
   appoinmentData: bookingVM;
 
   constructor(
-    private apiService:ApiService
+    private router: Router, private apiService: ApiService, private toastService: ToastService, private localStorageService: LocalstorageService
   ) {
     this.appoinmentForm.valueChanges.subscribe(_change => {
       this.appoinmentData = {
@@ -44,8 +58,20 @@ export class AppointmentComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.getCarAndModelList();
     this.setTabData();
-    this.setupContactusForm();
+  }
+  getCarAndModelList() {
+    this.apiService.GETAPICallAsync<Array<carCompanyResVM>>("http://52.66.113.164:3000/api/car/car_list").then(res => {
+      if (res.length > 0) {
+        this.carCompanies = res.map((p) => ({
+          label: p.name,
+          value: p.car_id
+        }))
+      } else {
+        this.carCompanies = carCompanies;
+      }
+    })
   }
   setupContactusForm() {
     this.appoinmentForm = new FormGroup({
@@ -67,7 +93,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   isVisibleErrorText(fieldName: string) {
-    return (this.appoinmentFormControls[fieldName].dirty || this.appoinmentFormControls[fieldName].invalid) && this.appoinmentFormControls[fieldName].touched;
+    return (this.appoinmentFormControls[fieldName]?.dirty || this.appoinmentFormControls[fieldName]?.invalid) && this.appoinmentFormControls[fieldName]?.touched;
   }
   setActiveTabItem(event: any) {
     this.activeTab = event.item;
@@ -76,14 +102,14 @@ export class AppointmentComponent implements OnInit {
     this.tabSetItems = [
       {
         label: 'BOOKING',
-        seqNum: this.tabSetEnum.Accesories,
+        seqNum: this.tabSetEnum.Booking,
         command: (event: any) => {
           this.setActiveTabItem(event);
         }
       },
       {
         label: 'FIND ACCESSORIES',
-        seqNum: this.tabSetEnum.Booking,
+        seqNum: this.tabSetEnum.Accesories,
         command: (event: any) => {
           this.setActiveTabItem(event);
         }
@@ -96,7 +122,22 @@ export class AppointmentComponent implements OnInit {
   }
 
   onChangeCar() {
-    this.filteredCarModel = this.carModels.filter(x => x.parentId ===  this.appoinmentForm?.controls['carCompany']?.value)
+    this.filteredCarModel = new Array<commonDropdownWithParentIdVM>();
+    let reqObj = {
+      car_id: this.activeTab.seqNum == this.tabSetEnum.Booking ? this.appoinmentForm?.controls['carCompany']?.value:  this.selectedCarCompany
+    }
+    this.apiService.POSTAPICallAsync<Array<carModelsResVM>>("http://52.66.113.164:3000/api/car/model_list", reqObj).then(res => {
+      if (res.length > 0) {
+        this.filteredCarModel = res.map((p) => ({
+          label: p.name,
+          value: p.model_id,
+          parentId: p.car_id
+        }));
+        this.appoinmentForm.controls["carModel"].reset();
+      } else {
+        this.filteredCarModel = this.carModels.filter(x => x.parentId === (this.activeTab.seqNum == this.tabSetEnum.Booking ? this.selectedCarCompany : this.appoinmentForm?.controls['carCompany']?.value))
+      }
+    })
   }
 
   showValidationErrors() {
@@ -122,20 +163,52 @@ export class AppointmentComponent implements OnInit {
 
   onFormSubmit() {
     if (this.appoinmentForm.invalid) {
-      console.log(this.appoinmentForm)
       this.showValidationErrors()
     } else {
       //api call to submit data
-      this.apiService.POSTAPICallAsync("http://52.66.113.164:3000/app/appointment/add",this.appoinmentForm.value).then((res:any) =>{
-        return true
-      })
-      console.log(this.appoinmentForm.value);
+      let reqObj = {
+        car_model: (this.appoinmentForm?.controls['carModel']?.value).toString(),
+        car_id: (this.appoinmentForm?.controls['carCompany']?.value).toString(),
+        date: new Date(this.appoinmentForm?.controls['appoinmentDate']?.value),
+        time: new Date(this.appoinmentForm?.controls['appoinmentTime']?.value)
+      }
+    }
+    if (this.localStorageService.getIem("token") === undefined || this.localStorageService.getIem("token") === null) {
+      this.toastService.showErrorToaster("Home", this.activeTab.seqNum == this.tabSetEnum.Booking ? "Register to book appointment" : "Register/Login to view available spares");
+      this.router.navigate(["/auth/register"]);
+    }
+    else { 
+      if (this.appoinmentForm.invalid) {
+        this.showValidationErrors()
+      } else {
+        //api call to submit data
+        let reqObj = {
+          car_model: this.appoinmentForm?.controls['carModel']?.value,
+          car_id: this.appoinmentForm?.controls['carCompany']?.value,
+          date: new Date(this.appoinmentForm?.controls['appoinmentDate']?.value),
+          time: new Date(this.appoinmentForm?.controls['appoinmentTime']?.value)
+        }
+        this.apiService.POSTAPICallAsync<boolean>("http://52.66.113.164:3000/app/appointment/add", reqObj).then(res => {
+          if (res) {
+            this.toastService.showSuccessToaster("Appoinment", "Your Appointment has been successfully booked.");
+          } else {
+            this.toastService.showErrorToaster("Appoinment", "Somethind went wrong");
+          }
+        }).catch(err => { 
+          this.toastService.showErrorToaster("",JSON.stringify(err));
+        })
+      }
     }
   }
 }
 export enum TabSetEnum {
   Accesories = 2,
   Booking = 1
+}
+export interface carModelsResVM { 
+  car_id: number;
+  model_id: number;
+  name: string;
 }
 export interface bookingVM {
   firstName: string;
@@ -156,6 +229,10 @@ export class tabSetVM {
 export class commonDropdownVM {
   label: string = "";
   value: number | string = 0
+}
+export interface carCompanyResVM { 
+  car_id: number;
+  name: string;
 }
 export class commonDropdownWithParentIdVM extends commonDropdownVM {
   parentId: number | string = 0

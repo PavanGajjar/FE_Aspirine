@@ -82,7 +82,7 @@
                                         <ng-container *ngIf="isVisibleErrorText('carCompany')">
                                             <span class="custom-error-text"
                                                 *ngIf="appoinmentFormControls['carCompany']?.errors?.['required']">
-                                                Car Company is required
+                                                Car Type is required
                                             </span>
                                         </ng-container>
                                     </div>
@@ -107,14 +107,14 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group form-group-row">
-                                    <div class="form-group" [ngClass]="isFieldInvalid('service_type') ? 'custom-error' : ''">
+                                    <div class="form-group" [ngClass]="isFieldInvalid('serviceType') ? 'custom-error' : ''">
                                         <div class="custom-label fw-400">Service Type</div>
                                         <p-dropdown [options]="serviceType"
                                             [autoDisplayFirst]="false" placeholder="Select Service Type"
-                                            formControlName="service_type"></p-dropdown>
-                                        <ng-container *ngIf="isVisibleErrorText('service_type')">
+                                            formControlName="serviceType"></p-dropdown>
+                                        <ng-container *ngIf="isVisibleErrorText('serviceType')">
                                             <span class="custom-error-text"
-                                                *ngIf="appoinmentFormControls['service_type']?.errors?.['required']">
+                                                *ngIf="appoinmentFormControls['serviceType']?.errors?.['required']">
                                                 service_type is required
                                             </span>
                                         </ng-container>
