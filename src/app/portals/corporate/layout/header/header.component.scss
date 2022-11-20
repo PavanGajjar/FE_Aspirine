@@ -1,10 +1,15 @@
 .getaDemo{
-    border-radius: 37px;
-    width: 115px !important;
-    padding: 0 0px;
+    border-radius: 0;
+    padding: 10px 1rem;
     background: #8dd445 !important;
 }
-
+.getaDemo:hover {
+    background: black !important;
+    color: #ffffff;
+}
+.getaDemo:hover p {
+    color: #ffff;
+}
 .getdemo_label {
     text-transform: none;
 }
