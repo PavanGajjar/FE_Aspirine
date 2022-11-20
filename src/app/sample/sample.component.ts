@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api/api.service';
+import { LocalstorageService } from '../services/localstorage/localstorage.service';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -23,20 +24,20 @@ export class SampleComponent implements OnInit {
   activeTab: tabSetVM = new tabSetVM();
 
   appoinmentForm: FormGroup = new FormGroup({
-    firstName: new FormControl(null, [Validators.required, Validators.email]),
+    firstName: new FormControl(null, [Validators.required]),
     lastName: new FormControl(null, Validators.required),
     email: new FormControl(null, Validators.required),
     contactNumber: new FormControl(null, Validators.required),
     carCompany: new FormControl(null, Validators.required),
     carModel: new FormControl(null, Validators.required),
     appoinmentDate: new FormControl(null, Validators.required),
-    appoinmentTime: new FormControl(null, Validators.required),
+    appoinmentTime: new FormControl(new Date, Validators.required),
   });
   get appoinmentFormControls() { return this.appoinmentForm?.controls };
 
   appoinmentData: bookingVM;
 
-  constructor(private router: Router, private apiService: ApiService, private toastService: ToastService) {
+  constructor(private router: Router, private apiService: ApiService, private toastService: ToastService, private localStorageService: LocalstorageService) {
     this.appoinmentForm.valueChanges.subscribe(_change => {
       this.appoinmentData = {
         firstName: _change.firstName,
@@ -88,11 +89,11 @@ export class SampleComponent implements OnInit {
     })
   }
   findParts() {
-    this.router.navigate(['sample2'], {
+    this.router.navigate(['products'], {
       queryParams: {
         params: JSON.stringify({
           carCompany: this.carCompanies.find(x => x.value === this.selectedCarCompany),
-          carModel: this.carModels.find(x => x.value === this.selectedCarModel),
+          carModel: this.filteredCarModel.find(x => x.value === this.selectedCarModel),
           category: this.categories.find(x => x.value === this.selectedCategory)
         })
       }
@@ -154,20 +155,37 @@ export class SampleComponent implements OnInit {
     } else {
       //api call to submit data
       let reqObj = {
-        car_model: this.appoinmentForm?.controls['carModel']?.value,
-        car_id: this.appoinmentForm?.controls['carCompany']?.value,
+        car_model: (this.appoinmentForm?.controls['carModel']?.value).toString(),
+        car_id: (this.appoinmentForm?.controls['carCompany']?.value).toString(),
         date: new Date(this.appoinmentForm?.controls['appoinmentDate']?.value),
         time: new Date(this.appoinmentForm?.controls['appoinmentTime']?.value)
       }
-      this.apiService.POSTAPICallAsync<boolean>("http://52.66.113.164:3000/app/appointment/add", reqObj).then(res => {
-        if (res) {
-          this.toastService.showSuccessToaster("Appoinment", "Your Appointment has been successfully booked.");
-        } else {
-          this.toastService.showErrorToaster("Appoinment", "Somethind went wrong");
+    }
+    if (this.localStorageService.getIem("token") === undefined || this.localStorageService.getIem("token") === null) {
+      this.toastService.showErrorToaster("Home", this.activeTab.seqNum == this.tabSetEnum.Booking ? "Register to book appointment" : "Register/Login to view available spares");
+      this.router.navigate(["/auth/register"]);
+    }
+    else { 
+      if (this.appoinmentForm.invalid) {
+        this.showValidationErrors()
+      } else {
+        //api call to submit data
+        let reqObj = {
+          car_model: this.appoinmentForm?.controls['carModel']?.value,
+          car_id: this.appoinmentForm?.controls['carCompany']?.value,
+          date: new Date(this.appoinmentForm?.controls['appoinmentDate']?.value),
+          time: new Date(this.appoinmentForm?.controls['appoinmentTime']?.value)
         }
-      }).catch(err => { 
-        this.toastService.showErrorToaster("",JSON.stringify(err));
-      })
+        this.apiService.POSTAPICallAsync<boolean>("http://52.66.113.164:3000/app/appointment/add", reqObj).then(res => {
+          if (res) {
+            this.toastService.showSuccessToaster("Appoinment", "Your Appointment has been successfully booked.");
+          } else {
+            this.toastService.showErrorToaster("Appoinment", "Somethind went wrong");
+          }
+        }).catch(err => { 
+          this.toastService.showErrorToaster("",JSON.stringify(err));
+        })
+      }
     }
   }
 }
@@ -305,7 +323,7 @@ const carModels: Array<commonDropdownWithParentIdVM> = [
 export const spearPartsDetails = [
   {
     partId: 0,
-    name: "Air Conditioning",
+    name: "Front AC",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
@@ -316,7 +334,7 @@ export const spearPartsDetails = [
   },
   {
     partId: 1,
-    name: "Rear Shock Absorber",
+    name: "  Microfilter  ",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
@@ -327,7 +345,7 @@ export const spearPartsDetails = [
   },
   {
     partId: 2,
-    name: "Rear Shock Absorber",
+    name: " Refrigerant 134a (450g) ",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
@@ -338,7 +356,7 @@ export const spearPartsDetails = [
   },
   {
     partId: 3,
-    name: "Rear Shock Absorber",
+    name: "  V-Ribbed Belts  ",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
@@ -349,7 +367,7 @@ export const spearPartsDetails = [
   },
   {
     partId: 4,
-    name: "Rear Shock Absorber",
+    name: " AC CAN GAS (340 -FLORON) ",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
@@ -360,7 +378,7 @@ export const spearPartsDetails = [
   },
   {
     partId: 5,
-    name: "Rear Shock Absorber",
+    name: " Cabin Air Filter ",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
@@ -371,7 +389,7 @@ export const spearPartsDetails = [
   },
   {
     partId: 6,
-    name: "Rear Shock Absorber",
+    name: " Filter, interior air ",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
