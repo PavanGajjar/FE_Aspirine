@@ -6,6 +6,7 @@ import { Sample2Component } from './sample2.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ButtonModule } from 'primeng/button';
     FormsModule,
     Sample2RoutingModule,
     DropdownModule,
-    ButtonModule
+    ButtonModule,
+    DialogModule
   ]
 })
 export class Sample2Module { }

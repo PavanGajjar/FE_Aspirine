@@ -23,6 +23,10 @@ const routes: Routes = [
       {
         path: "contact-us",
         loadChildren: () => import('./pages/about-us/about-us.module').then(m => m.AboutUsModule)
+      },
+      {
+        path: "products",
+        loadChildren: () => import('./pages/sample2/sample2.module').then(m => m.Sample2Module)
       }
     ]
   },

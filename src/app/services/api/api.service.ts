@@ -19,6 +19,7 @@ export class ApiService {
       "Content-Type": "application/json"
     });
     if (isAuth) header = header.append("Authorization", this.localStorageService.getIem("token") || "");
+    console.log(header)
     return header; 
   }
   private handleError(error:HttpErrorResponse){
