@@ -150,7 +150,6 @@ export class SampleComponent implements OnInit {
       this.appoinmentFormControls['appoinmentTime'].markAsTouched();
   }
   onFormSubmit() {
-    console.log(this.appoinmentForm)
     if (this.appoinmentForm.invalid) {
       this.showValidationErrors()
     } else {
@@ -161,12 +160,7 @@ export class SampleComponent implements OnInit {
         date: new Date(this.appoinmentForm?.controls['appoinmentDate']?.value),
         time: new Date(this.appoinmentForm?.controls['appoinmentTime']?.value)
       }
-      this.apiService.POSTAPICallAsync<boolean>("http://52.66.113.164:3000/app/appointment/add", reqObj).then(res => {
-        if (res) {
-          this.toastService.showSuccessToaster("Appoinment", "Your Appointment has been successfully booked.");
-          this.appoinmentForm.reset()
-        } else {
-          this.toastService.showErrorToaster("Appoinment", "Somethind went wrong");
+    }
     if (this.localStorageService.getIem("token") === undefined || this.localStorageService.getIem("token") === null) {
       this.toastService.showErrorToaster("Home", this.activeTab.seqNum == this.tabSetEnum.Booking ? "Register to book appointment" : "Register/Login to view available spares");
       this.router.navigate(["/auth/register"]);
