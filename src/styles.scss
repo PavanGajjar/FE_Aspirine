@@ -3206,6 +3206,64 @@ p.copyright-text {
 }
 
 /* =====  Inventory style end ===== */
+
+/* =====  Contact us style start ===== */
+.pages-banner {
+    background-image: url('./assets/images/contact-banner.jpeg');
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    background-position: center;
+    padding: 6rem 0;
+}
+.contact-banner-wrapper p {
+    color: #8dd445;
+    font-size: 15px;
+    margin-bottom: 0;
+    font-weight: 700;
+}
+.contact-banner-wrapper h4 {
+    color: #ffffff;
+    font-size: 36px;
+    margin-bottom: 0;
+}
+.contact-inner-item {
+    border: 1px solid #efefef;
+    padding: 50px 30px 25px;
+    text-align: center;
+}
+.ltn__contact-address-icon svg {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+}
+.contact-inner-item h3 {
+    font-size: 22px;
+    font-weight: 700;
+}
+.contact-inner-item p {
+    color: #a6a2a2;
+}
+.contact-note {
+    padding: 20px 30px;
+    box-shadow: 0 3px 10px #bdbdbd;
+    border-radius: 5px;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+.contact-note h3 {
+    font-size: 24px;
+    margin-bottom: 1rem;
+    color: #8dd445;
+}
+.contact-note p {
+    color: #717171;
+    font-size: 14px;
+    line-height: 25px;
+}
+/* =====  Contact us style end ===== */
 /* =====  Responsive media style start ===== */
 
 @media (min-width: 992px) {
