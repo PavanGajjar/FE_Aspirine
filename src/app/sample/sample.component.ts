@@ -89,11 +89,11 @@ export class SampleComponent implements OnInit {
     })
   }
   findParts() {
-    this.router.navigate(['sample2'], {
+    this.router.navigate(['products'], {
       queryParams: {
         params: JSON.stringify({
           carCompany: this.carCompanies.find(x => x.value === this.selectedCarCompany),
-          carModel: this.carModels.find(x => x.value === this.selectedCarModel),
+          carModel: this.filteredCarModel.find(x => x.value === this.selectedCarModel),
           category: this.categories.find(x => x.value === this.selectedCategory)
         })
       }
@@ -312,7 +312,7 @@ const carModels: Array<commonDropdownWithParentIdVM> = [
 export const spearPartsDetails = [
   {
     partId: 0,
-    name: "Air Conditioning",
+    name: "Front AC",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
@@ -323,7 +323,7 @@ export const spearPartsDetails = [
   },
   {
     partId: 1,
-    name: "Rear Shock Absorber",
+    name: "  Microfilter  ",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
@@ -334,7 +334,7 @@ export const spearPartsDetails = [
   },
   {
     partId: 2,
-    name: "Rear Shock Absorber",
+    name: " Refrigerant 134a (450g) ",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
@@ -345,7 +345,7 @@ export const spearPartsDetails = [
   },
   {
     partId: 3,
-    name: "Rear Shock Absorber",
+    name: "  V-Ribbed Belts  ",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
@@ -356,7 +356,7 @@ export const spearPartsDetails = [
   },
   {
     partId: 4,
-    name: "Rear Shock Absorber",
+    name: " AC CAN GAS (340 -FLORON) ",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
@@ -367,7 +367,7 @@ export const spearPartsDetails = [
   },
   {
     partId: 5,
-    name: "Rear Shock Absorber",
+    name: " Cabin Air Filter ",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
@@ -378,7 +378,7 @@ export const spearPartsDetails = [
   },
   {
     partId: 6,
-    name: "Rear Shock Absorber",
+    name: " Filter, interior air ",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
