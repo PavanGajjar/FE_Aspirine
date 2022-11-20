@@ -163,7 +163,7 @@ ol {
     width: 100%;
     top: 0px;
     left: 0;
-    box-shadow: 6px 6px 15px rgb(0 0 0 / 6%);
+    box-shadow: 6px 6px 15px rgb(0 0 0 / 16%);
     z-index: 999;
     animation: smoothScroll 1s forwards;
 }
@@ -278,14 +278,14 @@ ol {
 }
 
 .progress-container {
-    background-color: #A8E1FA;
+    background-color: #bdbdbd;
     height: 100vh;
     width: 4px;
     border-radius: 6px;
 }
 
 .progress-bar {
-    background-color: #0F56F5;
+    background-color: #8dd445;
     width: 6px;
 }
 
@@ -1631,7 +1631,8 @@ p.copyright-text {
 }
 
 .login-img {
-    background-image: url(../src/assets/images/auth-login.jpg);
+    background-image: url(../src/assets/images/car-bg.jpg);
+    // background-image: url(https://cdn.pixabay.com/photo/2017/03/31/12/07/auto-2191185_960_720.jpg);
     width: 100%;
     min-height: 100%;
     background-size: cover;
@@ -4827,6 +4828,10 @@ p.copyright-text {
 }
 
 @media (max-width:450px) {
+    
+    .title-tag{
+        font-weight:bold; font-size:2rem !important; 
+    }
     .careers-search-section li {
         border-right: none;
     }
@@ -4894,7 +4899,7 @@ p.copyright-text {
     }
 
     .navbar-brand img {
-        width: 65px;
+        width: 150px;
     }
 
     .navbar-mini li {
@@ -4973,4 +4978,12 @@ p.copyright-text {
 
 .custom-toast .p-element {
     width: -webkit-fill-available !important;
+}
+
+.title-tag{
+    font-weight:bold; font-size:4rem; 
+}
+
+h1 span {
+    color: #8dd445;
 }
