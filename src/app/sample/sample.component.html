@@ -11,7 +11,7 @@
                 </p-tabMenu>
             </div>
         </div>
-        <div class="row mt-3" *ngIf="activeTab.seqNum == tabSetEnum.Accesories">
+        <div class="row mt-3" *ngIf="activeTab.seqNum == tabSetEnum.Booking">
             <div class="col-md-12">
                 <form [formGroup]="appoinmentForm">
                     <div class="row">
@@ -155,7 +155,7 @@
                 </form>
             </div>
         </div>
-        <div class="row mt-3 justify-content-center" *ngIf="activeTab.seqNum == tabSetEnum.Booking">
+        <div class="row mt-3 justify-content-center" *ngIf="activeTab.seqNum == tabSetEnum.Accesories">
             <div class="col-md-3">
                 <p-dropdown [options]="carCompanies" [(ngModel)]="selectedCarCompany" (onChange)="onChangeCar()"
                     optionLabel="label" optionValue="value" [autoDisplayFirst]="false" placeholder="Select Make">

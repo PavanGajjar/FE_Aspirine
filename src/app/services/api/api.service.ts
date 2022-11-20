@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {HttpClient,HttpErrorResponse,HttpHeaders} from "@angular/common/http";
 import { catchError, firstValueFrom, map, throwError } from 'rxjs';
+import { LocalstorageService } from '../localstorage/localstorage.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,13 +11,14 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private localStorageService: LocalstorageService
   ) { }
 
   public getHttpHeaders(isAuth:boolean = true): HttpHeaders{
     var header = new HttpHeaders({
       "Content-Type": "application/json"
     });
-    if (isAuth) header = header.append("Authorization",this._accessToken);
+    if (isAuth) header = header.append("Authorization", this.localStorageService.getIem("token") || "");
     return header; 
   }
   private handleError(error:HttpErrorResponse){

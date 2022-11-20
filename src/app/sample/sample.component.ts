@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ApiService } from '../services/api/api.service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-sample',
@@ -8,10 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./sample.component.scss']
 })
 export class SampleComponent implements OnInit {
-  carCompanies: Array<commonDropdownVM> = carCompanies;
+  carCompanies: Array<commonDropdownVM> = new Array<commonDropdownVM>();
   selectedCarCompany: number;
   carModels: Array<commonDropdownWithParentIdVM> = carModels;
-  filteredCarModel: Array<commonDropdownWithParentIdVM> = [];
+  filteredCarModel: Array<commonDropdownWithParentIdVM> = new Array<commonDropdownWithParentIdVM>();
   selectedCarModel: number;
   categories: Array<commonDropdownVM> = categories;
   selectedCategory: number;
@@ -20,12 +22,21 @@ export class SampleComponent implements OnInit {
   tabSetEnum = TabSetEnum;
   activeTab: tabSetVM = new tabSetVM();
 
-  appoinmentForm: FormGroup = new FormGroup({});
+  appoinmentForm: FormGroup = new FormGroup({
+    firstName: new FormControl(null, [Validators.required, Validators.email]),
+    lastName: new FormControl(null, Validators.required),
+    email: new FormControl(null, Validators.required),
+    contactNumber: new FormControl(null, Validators.required),
+    carCompany: new FormControl(null, Validators.required),
+    carModel: new FormControl(null, Validators.required),
+    appoinmentDate: new FormControl(null, Validators.required),
+    appoinmentTime: new FormControl(null, Validators.required),
+  });
   get appoinmentFormControls() { return this.appoinmentForm?.controls };
 
   appoinmentData: bookingVM;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private apiService: ApiService, private toastService: ToastService) {
     this.appoinmentForm.valueChanges.subscribe(_change => {
       this.appoinmentData = {
         firstName: _change.firstName,
@@ -37,16 +48,44 @@ export class SampleComponent implements OnInit {
         appoinmentDate: _change.appoinmentDate,
         appoinmentTime: _change.appoinmentTime
       };
-    })
+    });
   }
 
   ngOnInit(): void {
+    this.getCarAndModelList();
     this.setTabData();
-    this.setupContactusForm();
+    // this.getUserDetails();
   }
 
+  getCarAndModelList() {
+    this.apiService.GETAPICallAsync<Array<carCompanyResVM>>("http://52.66.113.164:3000/api/car/car_list").then(res => {
+      if (res.length > 0) {
+        this.carCompanies = res.map((p) => ({
+          label: p.name,
+          value: p.car_id
+        }))
+      } else {
+        this.carCompanies = carCompanies;
+      }
+    })
+  }
   onChangeCar() {
-    this.filteredCarModel = this.carModels.filter(x => x.parentId ===  this.appoinmentForm?.controls['carCompany']?.value)
+    this.filteredCarModel = new Array<commonDropdownWithParentIdVM>();
+    let reqObj = {
+      car_id: this.activeTab.seqNum == this.tabSetEnum.Booking ? this.appoinmentForm?.controls['carCompany']?.value:  this.selectedCarCompany
+    }
+    this.apiService.POSTAPICallAsync<Array<carModelsResVM>>("http://52.66.113.164:3000/api/car/model_list", reqObj).then(res => {
+      if (res.length > 0) {
+        this.filteredCarModel = res.map((p) => ({
+          label: p.name,
+          value: p.model_id,
+          parentId: p.car_id
+        }))
+        this.appoinmentForm.controls["carModel"].reset();
+      } else {
+        this.filteredCarModel = this.carModels.filter(x => x.parentId === (this.activeTab.seqNum == this.tabSetEnum.Booking ? this.selectedCarCompany : this.appoinmentForm?.controls['carCompany']?.value))
+      }
+    })
   }
   findParts() {
     this.router.navigate(['sample2'], {
@@ -63,14 +102,14 @@ export class SampleComponent implements OnInit {
     this.tabSetItems = [
       {
         label: 'BOOKING',
-        seqNum: this.tabSetEnum.Accesories,
+        seqNum: this.tabSetEnum.Booking,
         command: (event: any) => {
           this.setActiveTabItem(event);
         }
       },
       {
         label: 'FIND ACCESSORIES',
-        seqNum: this.tabSetEnum.Booking,
+        seqNum: this.tabSetEnum.Accesories,
         command: (event: any) => {
           this.setActiveTabItem(event);
         }
@@ -84,28 +123,13 @@ export class SampleComponent implements OnInit {
   setActiveTabItem(event: any) {
     this.activeTab = event.item;
   }
-
-  setupContactusForm() {
-    this.appoinmentForm = new FormGroup({
-      firstName: new FormControl(null, [Validators.required, Validators.email]),
-      lastName: new FormControl(null, Validators.required),
-      email: new FormControl(null, Validators.required),
-      contactNumber: new FormControl(null, Validators.required),
-      carCompany: new FormControl(null, Validators.required),
-      carModel: new FormControl(null, Validators.required),
-      appoinmentDate: new FormControl(null, Validators.required),
-      appoinmentTime: new FormControl(null, Validators.required),
-    });
-  }
   isFieldInvalid(fieldType: string): boolean {
     return this.appoinmentFormControls[fieldType]?.invalid &&
       (this.appoinmentFormControls[fieldType]?.touched || this.appoinmentFormControls[fieldType]?.dirty);
   }
-
   isVisibleErrorText(fieldName: string) {
     return (this.appoinmentFormControls[fieldName].dirty || this.appoinmentFormControls[fieldName].invalid) && this.appoinmentFormControls[fieldName].touched;
   }
-
   showValidationErrors() {
     if (this.appoinmentFormControls['firstName'].invalid)
       this.appoinmentFormControls['firstName'].markAsTouched();
@@ -129,9 +153,32 @@ export class SampleComponent implements OnInit {
       this.showValidationErrors()
     } else {
       //api call to submit data
-      console.log(this.appoinmentData);
+      let reqObj = {
+        car_model: this.appoinmentForm?.controls['carModel']?.value,
+        car_id: this.appoinmentForm?.controls['carCompany']?.value,
+        date: new Date(this.appoinmentForm?.controls['appoinmentDate']?.value),
+        time: new Date(this.appoinmentForm?.controls['appoinmentTime']?.value)
+      }
+      this.apiService.POSTAPICallAsync<boolean>("http://52.66.113.164:3000/app/appointment/add", reqObj).then(res => {
+        if (res) {
+          this.toastService.showSuccessToaster("Appoinment", "Your Appointment has been successfully booked.");
+        } else {
+          this.toastService.showErrorToaster("Appoinment", "Somethind went wrong");
+        }
+      }).catch(err => { 
+        this.toastService.showErrorToaster("",JSON.stringify(err));
+      })
     }
   }
+}
+export interface carCompanyResVM { 
+  car_id: number;
+  name: string;
+}
+export interface carModelsResVM { 
+  car_id: number;
+  model_id: number;
+  name: string;
 }
 export interface bookingVM {
   firstName: string;
@@ -180,18 +227,18 @@ const carCompanies: Array<commonDropdownVM> = [
   { label: "Maclarne", value: 6 },
 ];
 const categories: Array<commonDropdownVM> = [
-  { label: "Repair Service Kit", value: 0 },
+  { label: "Air Conditioning", value: 0 },
   { label: "Brake", value: 1 },
   { label: "Shock Absorber and Strut", value: 2 },
   { label: "Light", value: 3 },
   { label: "Belt", value: 4 },
   { label: "Catalogue Service manual", value: 5 },
+  { label: "Repair Service Kit", value: 6 },
   { label: "Emblem", value: 6 },
   { label: "Glow Plug", value: 6 },
   { label: "Horn", value: 6 },
   { label: "Spark Plug", value: 6 },
   { label: "Wiper", value: 6 },
-  { label: "Air Conditioning", value: 6 },
   { label: "Belts Chains and Rollers", value: 6 },
   { label: "Bearings", value: 6 },
   { label: "Body", value: 6 },
@@ -258,7 +305,7 @@ const carModels: Array<commonDropdownWithParentIdVM> = [
 export const spearPartsDetails = [
   {
     partId: 0,
-    name: "Rear Shock Absorber",
+    name: "Air Conditioning",
     partNumber: 1234,
     origin: "AfterMarket",
     class: "Shock Absorber",
