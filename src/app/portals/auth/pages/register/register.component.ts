@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
   get registerformControls() { return this.registerForm?.value; }
 
   constructor(
-    private router :Router,
+    private router: Router,
     private apiService: ApiService,
   ) { }
 
@@ -24,12 +24,11 @@ export class RegisterComponent implements OnInit {
   }
   setupContactusForm() {
     this.registerForm = new FormGroup({
-      name: new FormControl('', Validators.required),
+      first_name: new FormControl('', Validators.required),
+      last_name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
-      mobile: new FormControl('', [Validators.required,Validators.max(10)]),
-      modelId: new FormControl('', Validators.required),
-      carId: new FormControl('', Validators.required),
+      mobile: new FormControl('', [Validators.required]),
       isAdmin: new FormControl('', Validators.required),
     });
   }
@@ -50,25 +49,24 @@ export class RegisterComponent implements OnInit {
   }
 
   showValidationErrors() {
-    if (this.registerformControls['login_id'].invalid)
-      this.registerformControls['login_id'].markAsTouched();
+    if (this.registerformControls['email'].invalid)
+      this.registerformControls['email'].markAsTouched();
     if (this.registerformControls['password'].invalid)
       this.registerformControls['password'].markAsTouched();
   }
   onFormSubmit() {
     if (this.registerForm.invalid) {
       return;
-  }
-  console.log("this.registerformControls",this.registerformControls)
-  this.apiService.POSTAPICallAsync("http://52.66.113.164:3000/api/auth/register",this.registerformControls).then(
-    (response) => {
-      if (response){
-        this.router.navigate(['/auth/login']);
-      }
-    },
-    error => {
-      console.log(error);
     }
+    this.apiService.POSTAPICallAsync("http://52.66.113.164:3000/api/auth/register", this.registerformControls).then(
+      (response) => {
+        if (response) {
+          this.router.navigate(['/auth/login']);
+        }
+      },
+      error => {
+        console.log(error);
+      }
     )
-}
+  }
 }
