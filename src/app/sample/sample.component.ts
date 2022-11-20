@@ -46,7 +46,7 @@ export class SampleComponent implements OnInit {
   }
 
   onChangeCar() {
-    this.filteredCarModel = this.carModels.filter(x => x.parentId === (this.activeTab.seqNum == this.tabSetEnum.Booking ? this.appoinmentForm?.controls['carCompany']?.value : this?.selectedCarCompany));
+    this.filteredCarModel = this.carModels.filter(x => x.parentId ===  this.appoinmentForm?.controls['carCompany']?.value)
   }
   findParts() {
     this.router.navigate(['sample2'], {

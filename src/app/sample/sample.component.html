@@ -1,165 +1,183 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12 disabled">
-            <p-tabMenu [model]="tabSetItems" [activeItem]="activeTab">
-                <ng-template pTemplate="item" let-item let-i="index">
-                    <span class="tab-label" [ngClass]="activeTab.seqNum != i + 1 ? 'inactive-tab-label' : ''">
-                        {{item.label}}
-                    </span>
-                </ng-template>
-            </p-tabMenu>
+<div class="inventory-section">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-xs-12 disabled">
+                <p-tabMenu [model]="tabSetItems" [activeItem]="activeTab">
+                    <ng-template pTemplate="item" let-item let-i="index">
+                        <span class="tab-label" [ngClass]="activeTab.seqNum != i + 1 ? 'inactive-tab-label' : ''">
+                            {{item.label}}
+                        </span>
+                    </ng-template>
+                </p-tabMenu>
+            </div>
         </div>
-    </div>
-    <div class="row mt-3" *ngIf="activeTab.seqNum == tabSetEnum.Accesories">
-        <div class="col-md-12">
-            <form [formGroup]="appoinmentForm">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group form-group-row">
-                            <div class="form-group" [ngClass]="isFieldInvalid('firstName') ? 'custom-error' : ''">
-                                <div class="custom-label fw-400">First Name</div>
-                                <input autocomplete="off" type="email" class="form-control custom-input-error" id="email"
-                                    formControlName="firstName" placeholder="Enter Your First Name"
-                                    aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
-                                <ng-container *ngIf="isVisibleErrorText('firstName')">
-                                    <span class="custom-error-text"
-                                        *ngIf="appoinmentFormControls['firstName']?.errors?.['required']">
-                                        First Name is required
-                                    </span>
-                                </ng-container>
+        <div class="row mt-3" *ngIf="activeTab.seqNum == tabSetEnum.Accesories">
+            <div class="col-md-12">
+                <form [formGroup]="appoinmentForm">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group form-group-row">
+                                <div class="form-group" [ngClass]="isFieldInvalid('firstName') ? 'custom-error' : ''">
+                                    <div class="custom-label fw-400">First Name</div>
+                                    <input autocomplete="off" type="email" class="form-control custom-input-error"
+                                        id="email" formControlName="firstName" placeholder="Enter Your First Name"
+                                        aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
+                                    <ng-container *ngIf="isVisibleErrorText('firstName')">
+                                        <span class="custom-error-text"
+                                            *ngIf="appoinmentFormControls['firstName']?.errors?.['required']">
+                                            First Name is required
+                                        </span>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group form-group-row">
-                            <div class="form-group" [ngClass]="isFieldInvalid('lastName') ? 'custom-error' : ''">
-                                <div class="custom-label fw-400">Last Name</div>
-                                <input autocomplete="off" type="email" class="form-control custom-input-error" id="email"
-                                    formControlName="lastName" placeholder="Enter Your Last Name"
-                                    aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
-                                <ng-container *ngIf="isVisibleErrorText('lastName')">
-                                    <span class="custom-error-text"
-                                        *ngIf="appoinmentFormControls['lastName']?.errors?.['required']">
-                                        Last Name is required
-                                    </span>
-                                </ng-container>
+                        <div class="col-md-3">
+                            <div class="form-group form-group-row">
+                                <div class="form-group" [ngClass]="isFieldInvalid('lastName') ? 'custom-error' : ''">
+                                    <div class="custom-label fw-400">Last Name</div>
+                                    <input autocomplete="off" type="email" class="form-control custom-input-error"
+                                        id="email" formControlName="lastName" placeholder="Enter Your Last Name"
+                                        aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
+                                    <ng-container *ngIf="isVisibleErrorText('lastName')">
+                                        <span class="custom-error-text"
+                                            *ngIf="appoinmentFormControls['lastName']?.errors?.['required']">
+                                            Last Name is required
+                                        </span>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group form-group-row">
-                            <div class="form-group" [ngClass]="isFieldInvalid('email') ? 'custom-error' : ''">
-                                <div class="custom-label fw-400">Email</div>
-                                <input autocomplete="off" type="email" class="form-control custom-input-error" id="email"
-                                    formControlName="email" placeholder="Enter Your Email" aria-describedby="emailHelp"
-                                    (keyup.enter)="onFormSubmit()">
-                                <ng-container *ngIf="isVisibleErrorText('email')">
-                                    <span class="custom-error-text"
-                                        *ngIf="appoinmentFormControls['email']?.errors?.['required']">
-                                        Email is required
-                                    </span>
-                                </ng-container>
+                        <div class="col-md-3">
+                            <div class="form-group form-group-row">
+                                <div class="form-group" [ngClass]="isFieldInvalid('email') ? 'custom-error' : ''">
+                                    <div class="custom-label fw-400">Email</div>
+                                    <input autocomplete="off" type="email" class="form-control custom-input-error"
+                                        id="email" formControlName="email" placeholder="Enter Your Email"
+                                        aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
+                                    <ng-container *ngIf="isVisibleErrorText('email')">
+                                        <span class="custom-error-text"
+                                            *ngIf="appoinmentFormControls['email']?.errors?.['required']">
+                                            Email is required
+                                        </span>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group form-group-row">
-                            <div class="form-group" [ngClass]="isFieldInvalid('contactNumber') ? 'custom-error' : ''">
-                                <div class="custom-label fw-400">Contact Number</div>
-                                <input autocomplete="off" type="email" class="form-control custom-input-error" id="email"
-                                    formControlName="contactNumber" placeholder="Enter Your Contact Number"
-                                    aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
-                                <ng-container *ngIf="isVisibleErrorText('contactNumber')">
-                                    <span class="custom-error-text"
-                                        *ngIf="appoinmentFormControls['contactNumber']?.errors?.['required']">
-                                        Contact Number is required
-                                    </span>
-                                </ng-container>
+                        <div class="col-md-3">
+                            <div class="form-group form-group-row">
+                                <div class="form-group"
+                                    [ngClass]="isFieldInvalid('contactNumber') ? 'custom-error' : ''">
+                                    <div class="custom-label fw-400">Contact Number</div>
+                                    <input autocomplete="off" type="email" class="form-control custom-input-error"
+                                        id="email" formControlName="contactNumber"
+                                        placeholder="Enter Your Contact Number" aria-describedby="emailHelp"
+                                        (keyup.enter)="onFormSubmit()">
+                                    <ng-container *ngIf="isVisibleErrorText('contactNumber')">
+                                        <span class="custom-error-text"
+                                            *ngIf="appoinmentFormControls['contactNumber']?.errors?.['required']">
+                                            Contact Number is required
+                                        </span>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group form-group-row">
-                            <div class="form-group" [ngClass]="isFieldInvalid('carCompany') ? 'custom-error' : ''">
-                                <div class="custom-label fw-400">Company</div>
-                                <p-dropdown [options]="carCompanies" (onChange)="onChangeCar()" optionLabel="label"
-                                    optionValue="value" [autoDisplayFirst]="false" placeholder="Select Company" formControlName="carCompany">
-                                </p-dropdown>
-                                <ng-container *ngIf="isVisibleErrorText('carCompany')">
-                                    <span class="custom-error-text"
-                                        *ngIf="appoinmentFormControls['carCompany']?.errors?.['required']">
-                                        Company is required
-                                    </span>
-                                </ng-container>
+                        <div class="col-md-3">
+                            <div class="form-group form-group-row">
+                                <div class="form-group" [ngClass]="isFieldInvalid('carCompany') ? 'custom-error' : ''">
+                                    <div class="custom-label fw-400">Company</div>
+                                    <p-dropdown [options]="carCompanies" (onChange)="onChangeCar()" optionLabel="label"
+                                        optionValue="value" [autoDisplayFirst]="false" placeholder="Select Company"
+                                        formControlName="carCompany">
+                                    </p-dropdown>
+                                    <ng-container *ngIf="isVisibleErrorText('carCompany')">
+                                        <span class="custom-error-text"
+                                            *ngIf="appoinmentFormControls['carCompany']?.errors?.['required']">
+                                            Company is required
+                                        </span>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group form-group-row">
-                            <div class="form-group" [ngClass]="isFieldInvalid('carModel') ? 'custom-error' : ''">
-                                <div class="custom-label fw-400">Model</div>
-                                <p-dropdown [options]="filteredCarModel" [disabled]="appoinmentForm.controls['carCompany'].value == null"
-                                    [autoDisplayFirst]="false" placeholder="Select Model" formControlName="carModel"></p-dropdown>
-                                <ng-container *ngIf="isVisibleErrorText('carModel')">
-                                    <span class="custom-error-text"
-                                        *ngIf="appoinmentFormControls['carModel']?.errors?.['required']">
-                                        Model is required
-                                    </span>
-                                </ng-container>
+                        <div class="col-md-3">
+                            <div class="form-group form-group-row">
+                                <div class="form-group" [ngClass]="isFieldInvalid('carModel') ? 'custom-error' : ''">
+                                    <div class="custom-label fw-400">Model</div>
+                                    <p-dropdown [options]="filteredCarModel"
+                                        [disabled]="appoinmentForm.controls['carCompany'].value == null"
+                                        [autoDisplayFirst]="false" placeholder="Select Model"
+                                        formControlName="carModel"></p-dropdown>
+                                    <ng-container *ngIf="isVisibleErrorText('carModel')">
+                                        <span class="custom-error-text"
+                                            *ngIf="appoinmentFormControls['carModel']?.errors?.['required']">
+                                            Model is required
+                                        </span>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group form-group-row">
-                            <div class="form-group" [ngClass]="isFieldInvalid('appoinmentDate') ? 'custom-error' : ''">
-                                <div class="custom-label fw-400">Select Date</div>
-                                <p-calendar formControlName="appoinmentDate"></p-calendar>
-                                <ng-container *ngIf="isVisibleErrorText('appoinmentDate')">
-                                    <span class="custom-error-text"
-                                        *ngIf="appoinmentFormControls['appoinmentDate']?.errors?.['required']">
-                                        Select Date is required
-                                    </span>
-                                </ng-container>
+                        <div class="col-md-3">
+                            <div class="form-group form-group-row">
+                                <div class="form-group"
+                                    [ngClass]="isFieldInvalid('appoinmentDate') ? 'custom-error' : ''">
+                                    <div class="custom-label fw-400">Select Date</div>
+                                    <p-calendar formControlName="appoinmentDate"></p-calendar>
+                                    <ng-container *ngIf="isVisibleErrorText('appoinmentDate')">
+                                        <span class="custom-error-text"
+                                            *ngIf="appoinmentFormControls['appoinmentDate']?.errors?.['required']">
+                                            Select Date is required
+                                        </span>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group form-group-row">
-                            <div class="form-group" [ngClass]="isFieldInvalid('appoinmentTime') ? 'custom-error' : ''">
-                                <div class="custom-label fw-400">Select Time</div>
-                                <p-calendar [timeOnly]="true" [showTime]="true" [hourFormat]="'12'" formControlName="appoinmentTime"></p-calendar>
-                                <ng-container *ngIf="isVisibleErrorText('appoinmentTime')">
-                                    <span class="custom-error-text"
-                                        *ngIf="appoinmentFormControls['appoinmentTime']?.errors?.['required']">
-                                        Select Time is required
-                                    </span>
-                                </ng-container>
+                        <div class="col-md-3">
+                            <div class="form-group form-group-row">
+                                <div class="form-group"
+                                    [ngClass]="isFieldInvalid('appoinmentTime') ? 'custom-error' : ''">
+                                    <div class="custom-label fw-400">Select Time</div>
+                                    <p-calendar [timeOnly]="true" [showTime]="true" [hourFormat]="'12'"
+                                        formControlName="appoinmentTime"></p-calendar>
+                                    <ng-container *ngIf="isVisibleErrorText('appoinmentTime')">
+                                        <span class="custom-error-text"
+                                            *ngIf="appoinmentFormControls['appoinmentTime']?.errors?.['required']">
+                                            Select Time is required
+                                        </span>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
+                        <div class="col-md-12 text-center mt-3">
+                            <button type="button" class="squre-btn" (click)="onFormSubmit()">
+                                <p>SUBMIT REQUEST</p>
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-md-12 text-center">
-                        <button pButton type="button" label="SUBMIT REQUEST" (click)="onFormSubmit()"></button>
-                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-3 justify-content-center" *ngIf="activeTab.seqNum == tabSetEnum.Booking">
+            <div class="col-md-3">
+                <p-dropdown [options]="carCompanies" [(ngModel)]="selectedCarCompany" (onChange)="onChangeCar()"
+                    optionLabel="label" optionValue="value" [autoDisplayFirst]="false" placeholder="Select Company">
+                </p-dropdown>
+            </div>
+            <div class="col-md-3">
+                <p-dropdown [options]="filteredCarModel" [disabled]="filteredCarModel.length == 0"
+                    [(ngModel)]="selectedCarModel" [autoDisplayFirst]="false" placeholder="Select Model"></p-dropdown>
+            </div>
+            <div class="col-md-3">
+                <p-dropdown [options]="categories"
+                    [disabled]="selectedCarModel == undefined || selectedCarModel == null"
+                    [(ngModel)]="selectedCategory" [autoDisplayFirst]="false" placeholder="Select Categories">
+                </p-dropdown>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12 mt-3 text-center">
+                    <button type="button" class="squre-btn" (click)="findParts()">
+                        <p>SEARCH INVENTORY</p>
+                    </button>
                 </div>
-            </form>
-        </div>
-    </div>
-    <div class="row mt-3" *ngIf="activeTab.seqNum == tabSetEnum.Booking">
-        <div class="col-md-3">
-            <p-dropdown [options]="carCompanies" [(ngModel)]="selectedCarCompany" (onChange)="onChangeCar()"
-                optionLabel="label" optionValue="value" [autoDisplayFirst]="false" placeholder="Select Company">
-            </p-dropdown>
-        </div>
-        <div class="col-md-3">
-            <p-dropdown [options]="filteredCarModel" [disabled]="filteredCarModel.length == 0"
-                [(ngModel)]="selectedCarModel" [autoDisplayFirst]="false" placeholder="Select Model"></p-dropdown>
-        </div>
-        <div class="col-md-3">
-            <p-dropdown [options]="categories" [disabled]="selectedCarModel == undefined || selectedCarModel == null"
-                [(ngModel)]="selectedCategory" [autoDisplayFirst]="false" placeholder="Select Categories"></p-dropdown>
-        </div>
-        <div class="col-md-3">
-            <button pButton type="button" label="SEARCH INVENTORY" (click)="findParts()"></button>
+            </div>
         </div>
     </div>
 </div>

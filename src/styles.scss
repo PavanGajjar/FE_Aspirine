@@ -1299,11 +1299,11 @@ ol {
 
 .form-control {
     border: 0.5px solid #1C1B1F;
-    border-radius: 7px;
+    border-radius: 0px;
     font-weight: 400;
     font-size: 16px;
     color: #1C1B1F;
-    padding: 9px 12px;
+    padding: 17px 13px;
 }
 
 .form-control:focus {
@@ -3153,7 +3153,60 @@ p.copyright-text {
 }
 /* =====  Why choose style end ===== */
 
+/* =====  Inventory style start ===== */
+.inventory-section {
+    background: #2d3c3e;
+    padding: 6rem 0;
+}
+.inventory-section .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link{
+    background: #8dd445;
+    border-color: #8dd445;
+    color: #ffffff;
+    font-weight: 400;
+}
+.inventory-section .inactive-tab-label {
+    color: #ffffff;
+    opacity: 1;
+}
+.inventory-section  .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link{
+    padding: 1rem 2rem;
+    font-weight: 600 !important;
+}
+.inventory-section .custom-label{
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    margin-bottom: 5px;
+}
+.inventory-section .p-dropdown{
+    border-radius: 0;
+    height: 60px;
+    border: 0;
+    line-height: 40px;
+}
+.inventory-section .p-calendar .p-inputtext{
+    border: 0;
+    border-radius: 0;
+    padding: 18px 13px;
+}
+.squre-btn {
+    padding: 1rem 2rem;
+    border: none;
+    box-shadow: none;
+    transition: 0.5s;
+    background: #8dd445;
+    color: #ffffff;
+}
+.squre-btn:hover {
+    background: #000000;
+}
+.squre-btn p {
+    margin-bottom: 0;
+    font-weight: 600;
+}
 
+/* =====  Inventory style end ===== */
 /* =====  Responsive media style start ===== */
 
 @media (min-width: 992px) {
