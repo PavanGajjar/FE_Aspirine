@@ -34,21 +34,12 @@
             </ul>
         </div>
         <ul class="navbar-nav hidden-md">
-            <button (click)='navigateToPage("supplyChainManagement")' [routerLink]="['/appointment']" class="animate-btn getaDemo" style='width:200px;' type="submit">
-                <p class='getdemo_label'>Book appointment </p>
+            <button [routerLink]="['/auth/login']" class="animate-btn getaDemo me-2" style='width:200px;' type="submit">
+                <p class='getdemo_label'>Log In </p>
             </button>
-            <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    EN
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark slideIn animate"
-                    aria-labelledby="navbarDarkDropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">English</a></li>
-                     <li><a class="dropdown-item" href="#">Español</a></li>
-                    <li><a class="dropdown-item" href="#">Français</a></li>
-                </ul>
-            </li> -->
+            <button [routerLink]="['/auth/register']" class="animate-btn getaDemo" style='width:200px;' type="submit">
+                <p class='getdemo_label'>Registration </p>
+            </button>
         </ul>
     </div>
 </nav>
