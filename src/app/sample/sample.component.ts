@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api/api.service';
+import { LocalstorageService } from '../services/localstorage/localstorage.service';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -36,7 +37,7 @@ export class SampleComponent implements OnInit {
 
   appoinmentData: bookingVM;
 
-  constructor(private router: Router, private apiService: ApiService, private toastService: ToastService) {
+  constructor(private router: Router, private apiService: ApiService, private toastService: ToastService, private localStorageService: LocalstorageService) {
     this.appoinmentForm.valueChanges.subscribe(_change => {
       this.appoinmentData = {
         firstName: _change.firstName,
@@ -166,10 +167,31 @@ export class SampleComponent implements OnInit {
           this.appoinmentForm.reset()
         } else {
           this.toastService.showErrorToaster("Appoinment", "Somethind went wrong");
+    if (this.localStorageService.getIem("token") === undefined || this.localStorageService.getIem("token") === null) {
+      this.toastService.showErrorToaster("Home", this.activeTab.seqNum == this.tabSetEnum.Booking ? "Register to book appointment" : "Register/Login to view available spares");
+      this.router.navigate(["/auth/register"]);
+    }
+    else { 
+      if (this.appoinmentForm.invalid) {
+        this.showValidationErrors()
+      } else {
+        //api call to submit data
+        let reqObj = {
+          car_model: this.appoinmentForm?.controls['carModel']?.value,
+          car_id: this.appoinmentForm?.controls['carCompany']?.value,
+          date: new Date(this.appoinmentForm?.controls['appoinmentDate']?.value),
+          time: new Date(this.appoinmentForm?.controls['appoinmentTime']?.value)
         }
-      }).catch(err => { 
-        this.toastService.showErrorToaster("",JSON.stringify(err));
-      })
+        this.apiService.POSTAPICallAsync<boolean>("http://52.66.113.164:3000/app/appointment/add", reqObj).then(res => {
+          if (res) {
+            this.toastService.showSuccessToaster("Appoinment", "Your Appointment has been successfully booked.");
+          } else {
+            this.toastService.showErrorToaster("Appoinment", "Somethind went wrong");
+          }
+        }).catch(err => { 
+          this.toastService.showErrorToaster("",JSON.stringify(err));
+        })
+      }
     }
   }
 }
