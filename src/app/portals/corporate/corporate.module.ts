@@ -4,10 +4,11 @@ import { CorporateRoutingModule } from './corporate-routing.module';
 import { CorporateComponent } from './corporate.component';
 import { HeaderModule } from './layout/header/header.module';
 import { FooterModule } from './layout/footer/footer.module';
+import { AppointmentComponent } from './pages/appointment/appointment.component';
 
 @NgModule({
   declarations: [
-    CorporateComponent
+    CorporateComponent,
   ],
   imports: [
     CommonModule,
