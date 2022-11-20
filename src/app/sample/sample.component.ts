@@ -23,6 +23,7 @@ export class SampleComponent implements OnInit {
   tabSetEnum = TabSetEnum;
   activeTab: tabSetVM = new tabSetVM();
 
+
   appoinmentForm: FormGroup = new FormGroup({
     firstName: new FormControl(null, [Validators.required]),
     lastName: new FormControl(null, Validators.required),
@@ -55,7 +56,20 @@ export class SampleComponent implements OnInit {
   ngOnInit(): void {
     this.getCarAndModelList();
     this.setTabData();
-    // this.getUserDetails();
+    if(this.localStorageService.getIem("token")) {
+      this.getUserDetails();
+    }
+  }
+
+  getUserDetails() {
+    this.apiService.GETAPICall('http://52.66.113.164:3000/api/user/all', [], true).subscribe((res: any) => {
+      this.appoinmentForm.patchValue({
+        firstName: res.first_name,
+        lastName: res.last_name,
+        email: res.email,
+        contactNumber: res.mobile,
+      });
+    })
   }
 
   getCarAndModelList() {
@@ -89,15 +103,19 @@ export class SampleComponent implements OnInit {
     })
   }
   findParts() {
-    this.router.navigate(['products'], {
-      queryParams: {
-        params: JSON.stringify({
-          carCompany: this.carCompanies.find(x => x.value === this.selectedCarCompany),
-          carModel: this.filteredCarModel.find(x => x.value === this.selectedCarModel),
-          category: this.categories.find(x => x.value === this.selectedCategory)
-        })
-      }
-    });
+    if(this.selectedCarCompany) {
+      this.router.navigate(['products'], {
+        queryParams: {
+          params: JSON.stringify({
+            carCompany: this.carCompanies.find(x => x.value === this.selectedCarCompany),
+            carModel: this.filteredCarModel.find(x => x.value === this.selectedCarModel),
+            category: this.categories.find(x => x.value === this.selectedCategory)
+          })
+        }
+      });
+    } else {
+      this.toastService.showErrorToaster("", "Please select car");
+    }
   }
   setTabData() {
     this.tabSetItems = [
@@ -150,17 +168,6 @@ export class SampleComponent implements OnInit {
       this.appoinmentFormControls['appoinmentTime'].markAsTouched();
   }
   onFormSubmit() {
-    if (this.appoinmentForm.invalid) {
-      this.showValidationErrors()
-    } else {
-      //api call to submit data
-      let reqObj = {
-        car_model: (this.appoinmentForm?.controls['carModel']?.value).toString(),
-        car_id: (this.appoinmentForm?.controls['carCompany']?.value).toString(),
-        date: new Date(this.appoinmentForm?.controls['appoinmentDate']?.value),
-        time: new Date(this.appoinmentForm?.controls['appoinmentTime']?.value)
-      }
-    }
     if (this.localStorageService.getIem("token") === undefined || this.localStorageService.getIem("token") === null) {
       this.toastService.showErrorToaster("Home", this.activeTab.seqNum == this.tabSetEnum.Booking ? "Register to book appointment" : "Register/Login to view available spares");
       this.router.navigate(["/auth/register"]);
@@ -208,6 +215,7 @@ export interface bookingVM {
   appoinmentDate: Date;
   appoinmentTime: Date;
 }
+
 export class tabSetVM {
   label: string = "";
   seqNum: number = 0;

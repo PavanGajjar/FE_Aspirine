@@ -22,7 +22,7 @@
                                     <input autocomplete="off" type="text" class="form-control custom-input-error"
                                         id="first_name" formControlName="firstName" placeholder="Enter Your First Name"
                                         aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
-                                    <ng-container *ngIf="isVisibleErrorText('firstName')">
+                                    <ng-container *ngIf="isVisibleErrorText('firstName')" readonly>
                                         <span class="custom-error-text"
                                             *ngIf="appoinmentFormControls['firstName']?.errors?.['required']">
                                             First Name is required
@@ -37,7 +37,7 @@
                                     <div class="custom-label fw-400">Last Name</div>
                                     <input autocomplete="off" type="text" class="form-control custom-input-error"
                                         id="lastname" formControlName="lastName" placeholder="Enter Your Last Name"
-                                        aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
+                                        aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()" readonly>
                                     <ng-container *ngIf="isVisibleErrorText('lastName')">
                                         <span class="custom-error-text"
                                             *ngIf="appoinmentFormControls['lastName']?.errors?.['required']">
@@ -54,7 +54,7 @@
                                     <input autocomplete="off" type="email" class="form-control custom-input-error"
                                         id="email" formControlName="email" placeholder="Enter Your Email"
                                         aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
-                                    <ng-container *ngIf="isVisibleErrorText('email')">
+                                    <ng-container *ngIf="isVisibleErrorText('email')" readonly>
                                         <span class="custom-error-text"
                                             *ngIf="appoinmentFormControls['email']?.errors?.['required']">
                                             Email is required
@@ -71,7 +71,7 @@
                                     <input autocomplete="off" type="text" class="form-control custom-input-error"
                                         id="number" formControlName="contactNumber"
                                         placeholder="Enter Your Contact Number" aria-describedby="emailHelp"
-                                        (keyup.enter)="onFormSubmit()">
+                                        (keyup.enter)="onFormSubmit()" readonly>
                                     <ng-container *ngIf="isVisibleErrorText('contactNumber')">
                                         <span class="custom-error-text"
                                             *ngIf="appoinmentFormControls['contactNumber']?.errors?.['required']">
@@ -103,7 +103,7 @@
                                 <div class="form-group" [ngClass]="isFieldInvalid('carModel') ? 'custom-error' : ''">
                                     <div class="custom-label fw-400">Model</div>
                                     <p-dropdown [options]="filteredCarModel"
-                                        [disabled]="appoinmentForm.controls['carCompany'].value == null"
+                                        [readonly]="appoinmentForm.controls['carCompany'].value == null"
                                         [autoDisplayFirst]="false" placeholder="Select Model"
                                         formControlName="carModel"></p-dropdown>
                                     <ng-container *ngIf="isVisibleErrorText('carModel')">
