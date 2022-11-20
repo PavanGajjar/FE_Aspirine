@@ -17,7 +17,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
       },
       {
-        path: "technologies",
+        path: "cost-calculator",
         loadChildren: () => import('./pages/technologies/technologies.module').then(m => m.TechnologiesModule)
       },
       {
