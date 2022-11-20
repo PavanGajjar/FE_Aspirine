@@ -29,10 +29,4 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   navigateToPage(navLinkId: string = "") {
     window.scrollTo(0, 2500);
   }
-  navigateToMarketPlace(){
-    const url = this.router.serializeUrl(
-      this.router.createUrlTree([`/marketplace`])
-    );
-    window.open(url, '_blank');
-  }
 }
