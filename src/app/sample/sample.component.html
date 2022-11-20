@@ -11,7 +11,7 @@
                 </p-tabMenu>
             </div>
         </div>
-        <div class="row mt-3" *ngIf="activeTab.seqNum == tabSetEnum.Accesories">
+        <div class="row mt-3" *ngIf="activeTab.seqNum == tabSetEnum.Booking">
             <div class="col-md-12">
                 <form [formGroup]="appoinmentForm">
                     <div class="row">
@@ -19,8 +19,8 @@
                             <div class="form-group form-group-row">
                                 <div class="form-group" [ngClass]="isFieldInvalid('firstName') ? 'custom-error' : ''">
                                     <div class="custom-label fw-400">First Name</div>
-                                    <input autocomplete="off" type="email" class="form-control custom-input-error"
-                                        id="email" formControlName="firstName" placeholder="Enter Your First Name"
+                                    <input autocomplete="off" type="text" class="form-control custom-input-error"
+                                        id="email1" formControlName="firstName" placeholder="Enter Your First Name"
                                         aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
                                     <ng-container *ngIf="isVisibleErrorText('firstName')">
                                         <span class="custom-error-text"
@@ -35,8 +35,8 @@
                             <div class="form-group form-group-row">
                                 <div class="form-group" [ngClass]="isFieldInvalid('lastName') ? 'custom-error' : ''">
                                     <div class="custom-label fw-400">Last Name</div>
-                                    <input autocomplete="off" type="email" class="form-control custom-input-error"
-                                        id="email" formControlName="lastName" placeholder="Enter Your Last Name"
+                                    <input autocomplete="off" type="text" class="form-control custom-input-error"
+                                        id="email2" formControlName="lastName" placeholder="Enter Your Last Name"
                                         aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
                                     <ng-container *ngIf="isVisibleErrorText('lastName')">
                                         <span class="custom-error-text"
@@ -52,7 +52,7 @@
                                 <div class="form-group" [ngClass]="isFieldInvalid('email') ? 'custom-error' : ''">
                                     <div class="custom-label fw-400">Email</div>
                                     <input autocomplete="off" type="email" class="form-control custom-input-error"
-                                        id="email" formControlName="email" placeholder="Enter Your Email"
+                                        id="email3" formControlName="email" placeholder="Enter Your Email"
                                         aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
                                     <ng-container *ngIf="isVisibleErrorText('email')">
                                         <span class="custom-error-text"
@@ -68,8 +68,8 @@
                                 <div class="form-group"
                                     [ngClass]="isFieldInvalid('contactNumber') ? 'custom-error' : ''">
                                     <div class="custom-label fw-400">Contact Number</div>
-                                    <input autocomplete="off" type="email" class="form-control custom-input-error"
-                                        id="email" formControlName="contactNumber"
+                                    <input autocomplete="off" type="text" class="form-control custom-input-error"
+                                        id="email4" formControlName="contactNumber"
                                         placeholder="Enter Your Contact Number" aria-describedby="emailHelp"
                                         (keyup.enter)="onFormSubmit()">
                                     <ng-container *ngIf="isVisibleErrorText('contactNumber')">
@@ -92,7 +92,7 @@
                                     <ng-container *ngIf="isVisibleErrorText('carCompany')">
                                         <span class="custom-error-text"
                                             *ngIf="appoinmentFormControls['carCompany']?.errors?.['required']">
-                                            Company is required
+                                            Make is required
                                         </span>
                                     </ng-container>
                                 </div>
@@ -119,12 +119,12 @@
                             <div class="form-group form-group-row">
                                 <div class="form-group"
                                     [ngClass]="isFieldInvalid('appoinmentDate') ? 'custom-error' : ''">
-                                    <div class="custom-label fw-400">Select Date</div>
+                                    <div class="custom-label fw-400">Appointment Date</div>
                                     <p-calendar formControlName="appoinmentDate"></p-calendar>
                                     <ng-container *ngIf="isVisibleErrorText('appoinmentDate')">
                                         <span class="custom-error-text"
                                             *ngIf="appoinmentFormControls['appoinmentDate']?.errors?.['required']">
-                                            Select Date is required
+                                            Appointment Date is required
                                         </span>
                                     </ng-container>
                                 </div>
@@ -134,13 +134,13 @@
                             <div class="form-group form-group-row">
                                 <div class="form-group"
                                     [ngClass]="isFieldInvalid('appoinmentTime') ? 'custom-error' : ''">
-                                    <div class="custom-label fw-400">Select Time</div>
+                                    <div class="custom-label fw-400">Appointment Time</div>
                                     <p-calendar [timeOnly]="true" [showTime]="true" [hourFormat]="'12'"
                                         formControlName="appoinmentTime"></p-calendar>
                                     <ng-container *ngIf="isVisibleErrorText('appoinmentTime')">
                                         <span class="custom-error-text"
                                             *ngIf="appoinmentFormControls['appoinmentTime']?.errors?.['required']">
-                                            Select Time is required
+                                            Appointment Time is required
                                         </span>
                                     </ng-container>
                                 </div>
@@ -155,10 +155,10 @@
                 </form>
             </div>
         </div>
-        <div class="row mt-3 justify-content-center" *ngIf="activeTab.seqNum == tabSetEnum.Booking">
+        <div class="row mt-3 justify-content-center" *ngIf="activeTab.seqNum == tabSetEnum.Accesories">
             <div class="col-md-3">
                 <p-dropdown [options]="carCompanies" [(ngModel)]="selectedCarCompany" (onChange)="onChangeCar()"
-                    optionLabel="label" optionValue="value" [autoDisplayFirst]="false" placeholder="Select Company">
+                    optionLabel="label" optionValue="value" [autoDisplayFirst]="false" placeholder="Select Make">
                 </p-dropdown>
             </div>
             <div class="col-md-3">

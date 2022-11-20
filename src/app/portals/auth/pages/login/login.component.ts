@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api/api.service';
 import { AuthenticationVM } from 'src/app/services/authentication/authenctication.model';
 import { LocalstorageService } from 'src/app/services/localstorage/localstorage.service';
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   get loginFormControls() { return this.loginForm?.controls };
   constructor(
     private apiService: ApiService,
-    private localStorageService:LocalstorageService,
+    private localStorageService: LocalstorageService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -27,7 +29,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
-      isAdmin: new FormControl('', Validators.required),
+      isAdmin: new FormControl(''),
     });
   }
 
@@ -60,11 +62,12 @@ export class LoginComponent implements OnInit {
     let userDetails: AuthenticationVM.authDetails = {
       email: this.loginFormControls["email"].value,
       password: this.loginFormControls["password"].value,
-      isAdmin: this.loginFormControls["isAdmin"].value
+      isAdmin: "1"
     }
     this.apiService.POSTAPICallAsync("http://52.66.113.164:3000/api/auth/login",userDetails).then((res:any) =>{
-      if (res){
-        this.localStorageService.setItem("token",res?.data.token)
+      if (res?.data != undefined && res?.data != null){
+        this.localStorageService.setLocalStorageData(res?.data);
+        this.router.navigate(['home']);
       }
     },
     error => {
