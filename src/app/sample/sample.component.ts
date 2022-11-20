@@ -24,14 +24,14 @@ export class SampleComponent implements OnInit {
   activeTab: tabSetVM = new tabSetVM();
 
   appoinmentForm: FormGroup = new FormGroup({
-    firstName: new FormControl(null, [Validators.required, Validators.email]),
+    firstName: new FormControl(null, [Validators.required]),
     lastName: new FormControl(null, Validators.required),
     email: new FormControl(null, Validators.required),
     contactNumber: new FormControl(null, Validators.required),
     carCompany: new FormControl(null, Validators.required),
     carModel: new FormControl(null, Validators.required),
     appoinmentDate: new FormControl(null, Validators.required),
-    appoinmentTime: new FormControl(null, Validators.required),
+    appoinmentTime: new FormControl(new Date, Validators.required),
   });
   get appoinmentFormControls() { return this.appoinmentForm?.controls };
 
@@ -150,6 +150,23 @@ export class SampleComponent implements OnInit {
       this.appoinmentFormControls['appoinmentTime'].markAsTouched();
   }
   onFormSubmit() {
+    console.log(this.appoinmentForm)
+    if (this.appoinmentForm.invalid) {
+      this.showValidationErrors()
+    } else {
+      //api call to submit data
+      let reqObj = {
+        car_model: (this.appoinmentForm?.controls['carModel']?.value).toString(),
+        car_id: (this.appoinmentForm?.controls['carCompany']?.value).toString(),
+        date: new Date(this.appoinmentForm?.controls['appoinmentDate']?.value),
+        time: new Date(this.appoinmentForm?.controls['appoinmentTime']?.value)
+      }
+      this.apiService.POSTAPICallAsync<boolean>("http://52.66.113.164:3000/app/appointment/add", reqObj).then(res => {
+        if (res) {
+          this.toastService.showSuccessToaster("Appoinment", "Your Appointment has been successfully booked.");
+          this.appoinmentForm.reset()
+        } else {
+          this.toastService.showErrorToaster("Appoinment", "Somethind went wrong");
     if (this.localStorageService.getIem("token") === undefined || this.localStorageService.getIem("token") === null) {
       this.toastService.showErrorToaster("Home", this.activeTab.seqNum == this.tabSetEnum.Booking ? "Register to book appointment" : "Register/Login to view available spares");
       this.router.navigate(["/auth/register"]);
