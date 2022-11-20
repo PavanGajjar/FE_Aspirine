@@ -69,7 +69,7 @@ export class SampleComponent implements OnInit {
         }
       },
       {
-        label: 'FIND Accesories',
+        label: 'FIND ACCESSORIES',
         seqNum: this.tabSetEnum.Booking,
         command: (event: any) => {
           this.setActiveTabItem(event);
