@@ -21,6 +21,9 @@ import { CalendarModule } from 'primeng/calendar';
     TabMenuModule,
     CalendarModule,
     ReactiveFormsModule
+  ],
+  exports: [
+    SampleComponent
   ]
 })
 export class SampleModule { }

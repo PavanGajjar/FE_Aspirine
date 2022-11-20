@@ -11,7 +11,7 @@
                 </p-tabMenu>
             </div>
         </div>
-        <div class="row mt-3" *ngIf="activeTab.seqNum == tabSetEnum.Accesories">
+        <div class="row mt-3" *ngIf="activeTab.seqNum == tabSetEnum.Booking">
             <div class="col-md-12">
                 <form [formGroup]="appoinmentForm">
                     <div class="row">
@@ -19,8 +19,8 @@
                             <div class="form-group form-group-row">
                                 <div class="form-group" [ngClass]="isFieldInvalid('firstName') ? 'custom-error' : ''">
                                     <div class="custom-label fw-400">First Name</div>
-                                    <input autocomplete="off" type="email" class="form-control custom-input-error"
-                                        id="email" formControlName="firstName" placeholder="Enter Your First Name"
+                                    <input autocomplete="off" type="text" class="form-control custom-input-error"
+                                        id="email1" formControlName="firstName" placeholder="Enter Your First Name"
                                         aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
                                     <ng-container *ngIf="isVisibleErrorText('firstName')">
                                         <span class="custom-error-text"
@@ -35,8 +35,8 @@
                             <div class="form-group form-group-row">
                                 <div class="form-group" [ngClass]="isFieldInvalid('lastName') ? 'custom-error' : ''">
                                     <div class="custom-label fw-400">Last Name</div>
-                                    <input autocomplete="off" type="email" class="form-control custom-input-error"
-                                        id="email" formControlName="lastName" placeholder="Enter Your Last Name"
+                                    <input autocomplete="off" type="text" class="form-control custom-input-error"
+                                        id="email2" formControlName="lastName" placeholder="Enter Your Last Name"
                                         aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
                                     <ng-container *ngIf="isVisibleErrorText('lastName')">
                                         <span class="custom-error-text"
@@ -52,7 +52,7 @@
                                 <div class="form-group" [ngClass]="isFieldInvalid('email') ? 'custom-error' : ''">
                                     <div class="custom-label fw-400">Email</div>
                                     <input autocomplete="off" type="email" class="form-control custom-input-error"
-                                        id="email" formControlName="email" placeholder="Enter Your Email"
+                                        id="email3" formControlName="email" placeholder="Enter Your Email"
                                         aria-describedby="emailHelp" (keyup.enter)="onFormSubmit()">
                                     <ng-container *ngIf="isVisibleErrorText('email')">
                                         <span class="custom-error-text"
@@ -68,8 +68,8 @@
                                 <div class="form-group"
                                     [ngClass]="isFieldInvalid('contactNumber') ? 'custom-error' : ''">
                                     <div class="custom-label fw-400">Contact Number</div>
-                                    <input autocomplete="off" type="email" class="form-control custom-input-error"
-                                        id="email" formControlName="contactNumber"
+                                    <input autocomplete="off" type="text" class="form-control custom-input-error"
+                                        id="email4" formControlName="contactNumber"
                                         placeholder="Enter Your Contact Number" aria-describedby="emailHelp"
                                         (keyup.enter)="onFormSubmit()">
                                     <ng-container *ngIf="isVisibleErrorText('contactNumber')">
@@ -92,7 +92,7 @@
                                     <ng-container *ngIf="isVisibleErrorText('carCompany')">
                                         <span class="custom-error-text"
                                             *ngIf="appoinmentFormControls['carCompany']?.errors?.['required']">
-                                            Company is required
+                                            Make is required
                                         </span>
                                     </ng-container>
                                 </div>
@@ -119,12 +119,12 @@
                             <div class="form-group form-group-row">
                                 <div class="form-group"
                                     [ngClass]="isFieldInvalid('appoinmentDate') ? 'custom-error' : ''">
-                                    <div class="custom-label fw-400">Select Date</div>
+                                    <div class="custom-label fw-400">Appointment Date</div>
                                     <p-calendar formControlName="appoinmentDate"></p-calendar>
                                     <ng-container *ngIf="isVisibleErrorText('appoinmentDate')">
                                         <span class="custom-error-text"
                                             *ngIf="appoinmentFormControls['appoinmentDate']?.errors?.['required']">
-                                            Select Date is required
+                                            Appointment Date is required
                                         </span>
                                     </ng-container>
                                 </div>
@@ -134,13 +134,13 @@
                             <div class="form-group form-group-row">
                                 <div class="form-group"
                                     [ngClass]="isFieldInvalid('appoinmentTime') ? 'custom-error' : ''">
-                                    <div class="custom-label fw-400">Select Time</div>
+                                    <div class="custom-label fw-400">Appointment Time</div>
                                     <p-calendar [timeOnly]="true" [showTime]="true" [hourFormat]="'12'"
                                         formControlName="appoinmentTime"></p-calendar>
                                     <ng-container *ngIf="isVisibleErrorText('appoinmentTime')">
                                         <span class="custom-error-text"
                                             *ngIf="appoinmentFormControls['appoinmentTime']?.errors?.['required']">
-                                            Select Time is required
+                                            Appointment Time is required
                                         </span>
                                     </ng-container>
                                 </div>
@@ -155,10 +155,10 @@
                 </form>
             </div>
         </div>
-        <div class="row mt-3 justify-content-center" *ngIf="activeTab.seqNum == tabSetEnum.Booking">
+        <div class="row mt-3 justify-content-center" *ngIf="activeTab.seqNum == tabSetEnum.Accesories">
             <div class="col-md-3">
                 <p-dropdown [options]="carCompanies" [(ngModel)]="selectedCarCompany" (onChange)="onChangeCar()"
-                    optionLabel="label" optionValue="value" [autoDisplayFirst]="false" placeholder="Select Company">
+                    optionLabel="label" optionValue="value" [autoDisplayFirst]="false" placeholder="Select Make">
                 </p-dropdown>
             </div>
             <div class="col-md-3">
@@ -180,4 +180,106 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<!-- Contact US start -->
+<div class="Contact-us-wrapper">
+    <div class="pages-banner">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="contact-banner-wrapper">
+                        <p>// WELCOME TO OUR COMPANY</p>
+                        <h4>Contact Us</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row mt-4">
+            <div class="col-xl-12">
+                <div class="section-title">
+                    <h3>Help & <span>Support</span></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="contact-inner-item">
+                    <div class="ltn__contact-address-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="29.624" height="22.565"
+                            viewBox="0 0 29.624 22.565">
+                            <path fill="#8dd445"
+                                d="M27.02 0H2.603a2.573 2.573 0 00-1.115.261l13.266 13.266 2.973-2.858L28.136.261A2.574 2.574 0 0027.02 0zM29.364 1.489l-9.795 9.794 9.794 9.794a2.573 2.573 0 00.261-1.115V2.604a2.573 2.573 0 00-.26-1.115zM.261 1.488A2.573 2.573 0 000 2.603v17.358a2.574 2.574 0 00.261 1.115l9.795-9.794z">
+                            </path>
+                            <path fill="#8dd445"
+                                d="M18.342 12.51l-2.974 2.858a.867.867 0 01-1.227 0l-2.858-2.858-9.795 9.794a2.574 2.574 0 001.116.261h24.417a2.573 2.573 0 001.115-.261z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3>Email Address</h3>
+                    <p>info@webmail.com <br>
+                        jobs@webexample.com</p>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="contact-inner-item">
+                    <div class="ltn__contact-address-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="27.207" height="27.208"
+                            viewBox="0 0 27.207 27.208">
+                            <path fill="#8dd445"
+                                d="M20.685 17.999a1.906 1.906 0 00-2.882 0 166.12 166.12 0 00-2.01 2.016.4.4 0 01-.555.1c-.436-.238-.9-.43-1.319-.691a20.9 20.9 0 01-5.039-4.586 11.938 11.938 0 01-1.806-2.891.414.414 0 01.1-.532c.674-.651 1.331-1.319 1.993-1.987a1.914 1.914 0 00-.004-2.953c-.527-.532-1.053-1.053-1.58-1.585-.544-.544-1.081-1.093-1.631-1.631a1.919 1.919 0 00-2.882.006c-.679.668-1.331 1.353-2.021 2.01a3.281 3.281 0 00-1.03 2.214 9.379 9.379 0 00.725 4.039 24.53 24.53 0 004.35 7.252 26.943 26.943 0 008.923 6.981 12.9 12.9 0 004.943 1.438 3.622 3.622 0 003.108-1.183c.577-.645 1.229-1.234 1.84-1.851a1.926 1.926 0 00.011-2.933q-1.609-1.622-3.234-3.233zM19.603 13.486l2.089-.357a9.378 9.378 0 00-7.932-7.694l-.294 2.1a7.247 7.247 0 016.137 5.95z">
+                            </path>
+                            <path fill="#8dd445"
+                                d="M22.871 4.4A15.4 15.4 0 0014.038 0l-.294 2.1a13.442 13.442 0 0111.374 11.023l2.089-.357A15.517 15.517 0 0022.871 4.4z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3>Phone Number</h3>
+                    <p>+0123-456789 <br>
+                        +987-6543210</p>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                <div class="contact-inner-item">
+                    <div class="ltn__contact-address-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="29.624" height="31.012"
+                            viewBox="0 0 29.624 31.012">
+                            <path
+                                d="M19.947 21.23l3.424-4.017a8.908 8.908 0 001.572-2.585 10.843 10.843 0 10-20.331 0 8.943 8.943 0 001.572 2.585l3.424 4.017c-4.926.559-9.607 2.061-9.607 4.751 0 3.458 7.685 5.03 14.812 5.03s14.812-1.571 14.812-5.03c0-2.689-4.682-4.192-9.678-4.751zM14.812 5.615a4.332 4.332 0 11-4.332 4.332 4.332 4.332 0 014.332-4.332zm0 23.3c-8.384 0-12.716-2.061-12.716-2.934s2.76-2.306 9.223-2.795l2.69 3.144a1.048 1.048 0 001.607 0l2.69-3.144c6.463.489 9.223 2.2 9.223 2.795s-4.333 2.935-12.717 2.935z"
+                                fill="#8dd445"></path>
+                        </svg>
+                    </div>
+                    <h3>Office Address</h3>
+                    <p>18/A, New Born Town Hall <br>
+                        New York, US</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                <div class="contact-note">
+                    <h3>Note</h3>
+                    <p>Our customer service team is available from Monday to Sunday from 10:00 AM to 7:00 PM.</p>
+                    <p>lease, write to Email: info@webmail.com or use Contact Form, Chat, Support Form available on
+                        website and application.</p>
+                    <p>aspirine customer care number: <a href="tel: +987-6543210">+987-6543210</a></p>
+                    <p><span>WARNING!</span> Do not call any other number except mentioned above. Please note, aspirine never calls &
+                        asks for bank account details, UPI id, OTP, etc. from the customer. We urge you not to share
+                        such information with anyone. In case of any fraudulent transaction, immediately notify your
+                        bank.</p>
+                        <p>Our head office address:</p>
+                        <p >18/A, New Born Town Hall <br> New York, US</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
