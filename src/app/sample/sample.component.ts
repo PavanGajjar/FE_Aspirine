@@ -178,8 +178,8 @@ export class SampleComponent implements OnInit {
       } else {
         //api call to submit data
         let reqObj = {
-          car_model: this.appoinmentForm?.controls['carModel']?.value,
-          car_id: this.appoinmentForm?.controls['carCompany']?.value,
+          car_model: this.appoinmentForm?.controls['carModel']?.value.toString(),
+          car_id: this.appoinmentForm?.controls['carCompany']?.value.toString(),
           date: new Date(this.appoinmentForm?.controls['appoinmentDate']?.value),
           time: new Date(this.appoinmentForm?.controls['appoinmentTime']?.value)
         }
