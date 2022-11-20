@@ -1,6 +1,6 @@
 <div class="login-section-wrapper">
     <div class="brand-wrapper">
-        <img src="../../../../../assets/images/aspirine-logo.svg" alt="logo" style='width:250px;' class="logo">
+        <img src="../../../../../assets/images/aspirine-logo.svg" alt="logo" style='width:230px;' class="logo">
     </div>
     <div class="login-text-wrapper">
         <h2 class='fw-400'>Sign-In</h2>
@@ -23,7 +23,7 @@
                     </ng-container>
                 </div>
             </div>
-            <div class="form-group form-group-row input-psw-group">
+            <div class="form-group  input-psw-group">
                 <div class="form-group" [ngClass]="isFieldInvalid('password') ? 'custom-error' : ''">
                     <div class="custom-label fw-400">Password</div>
                     <input autocomplete="off" #pw type="password" class="form-control custom-input-error" id="password"
@@ -53,18 +53,15 @@
                 </label>
             </div>
         </div>
-        <div class="forgot-psw">
-            <a class='fw-400' [routerLink]="['/auth/mobile-login']">Forgot Password ?</a>
-        </div>
     </div>
     <div class="text-center login-btn">
-        <button type="button" class="animate-btn w-auto" (click)="onFormSubmit()" style='margin: 0;'>
-            <p class='fw-400'>Sign In</p>
+        <button type="button" class="squre-btn" (click)="onFormSubmit()" style='margin: 0;'>
+            <p>Sign In</p>
         </button>
     </div>
     <div class="account-wrapper">
         <div class="account-text">
-            <p class='fw-400 fs-12'>Dont have an account?</p>
+            <p class='fw-400 fs-12'>Don't have an account?</p>
         </div>
         <div class="register-wrapper">
             <a class='fw-400 fs-12' style='margin-left: 5px;' [routerLink]="['/auth/register']">Create an Account</a>
